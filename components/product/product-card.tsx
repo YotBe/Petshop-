@@ -81,7 +81,7 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
         <Button
-          variant={onSale ? 'accent' : 'default'}
+          variant="accent"
           className="mt-3 w-full"
           onClick={handleAdd}
           disabled={product.stockStatus === 'out-of-stock'}

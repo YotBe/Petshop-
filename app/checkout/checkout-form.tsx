@@ -160,8 +160,14 @@ export default function CheckoutForm() {
         </div>
       </section>
 
-      <Button size="lg" type="submit" disabled={submitting || items.length === 0} className="w-full">
-        {submitting ? 'מעבד...' : 'בצע הזמנה'}
+      <Button
+        size="lg"
+        type="submit"
+        variant="accent"
+        disabled={submitting || items.length === 0}
+        className="w-full"
+      >
+        {submitting ? 'מעבד...' : 'בצעו הזמנה'}
       </Button>
     </form>
   );
