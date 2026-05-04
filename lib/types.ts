@@ -2,7 +2,9 @@ export type Category =
   | 'harnesses-leashes'
   | 'outdoor-gear'
   | 'interactive-toys'
-  | 'training';
+  | 'training'
+  | 'beds-furniture'
+  | 'feeding';
 
 export type StockStatus = 'in-stock' | 'low-stock' | 'out-of-stock';
 

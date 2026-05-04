@@ -1,181 +1,320 @@
 import type { Product, CategoryMeta } from './types';
 
+// Wishlist source: https://www.aliexpress.com/p/wish-manage/share.html?type=wish&wishGroupId=900000003473719
+const WISHLIST_URL =
+  'https://www.aliexpress.com/p/wish-manage/share.html?type=wish&wishGroupId=900000003473719&spreadId=2ED41EE421F70C6BB3CF25DEEA87D907262B0DC22F17CFAACEA24126B7CFD7A4';
+
 export const CATEGORIES: CategoryMeta[] = [
   {
     slug: 'harnesses-leashes',
     title: 'רתמות ורצועות',
-    description: 'בלי משיכות, בלי בריחות, נוחות לכל היום.',
+    description: 'בטיחות ונוחות לכל היום.',
     icon: 'Shield'
   },
   {
     slug: 'outdoor-gear',
     title: 'ציוד חוץ',
-    description: 'בנוי לשביל, לאגם ולכל הרפתקה.',
+    description: 'בנוי להרפתקה ולטיולים.',
     icon: 'Mountain'
   },
   {
     slug: 'interactive-toys',
     title: 'צעצועים אינטראקטיביים',
-    description: 'לשרוף אנרגיה. לחסל שעמום.',
+    description: 'לשרוף אנרגיה ולהעשרה.',
     icon: 'Gamepad2'
   },
   {
     slug: 'training',
     title: 'אילוף',
-    description: 'כלים שעושים כל טיול לקל יותר.',
+    description: 'כלים לתרגול יומיומי.',
     icon: 'GraduationCap'
+  },
+  {
+    slug: 'beds-furniture',
+    title: 'מיטות וריהוט',
+    description: 'מיטות נוחות, ספות ומשטחי מנוחה.',
+    icon: 'Bed'
+  },
+  {
+    slug: 'feeding',
+    title: 'האכלה והשתייה',
+    description: 'בקבוקים, קערות ומכלי אחסון.',
+    icon: 'UtensilsCrossed'
   }
 ];
 
 export const PRODUCTS: Product[] = [
   {
     id: 'p1',
-    slug: 'tactical-heavy-duty-harness',
-    title: 'רתמה טקטית מחוזקת לעבודה',
+    slug: 'pet-car-seat-belt-harness',
+    title: 'רתמת בטיחות לרכב — חגורת בטיחות מתכווננת לכלבים וחתולים',
     description:
-      'רתמה מנילון בדרגה צבאית עם שתי טבעות D ממתכת, צלחת חזה מרופדת ונקודות חיבור MOLLE. מתוכננת לכלבי עבודה ולגזעים בעלי כוח משיכה גבוה.',
-    price: 19999,
-    originalPrice: 27999,
+      'חגורת בטיחות מתכווננת המתחברת לכל חגורת בטיחות סטנדרטית ברכב. שומרת על החיה במהלך הנסיעה ומונעת תזוזה פתאומית.',
+    price: 620,
+    originalPrice: 636,
     stockStatus: 'in-stock',
     images: [
-      'https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=1200',
       'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=1200',
-      'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200'
+      'https://images.unsplash.com/photo-1568572933382-74d440642117?w=1200'
     ],
     category: 'harnesses-leashes',
     rating: 4.8,
-    reviewCount: 1284,
+    reviewCount: 5000,
     spec: {
-      material: 'נילון 1000D בדרגה צבאית, טבעות D מפלדה',
-      sizes: ['M', 'L', 'XL'],
-      weightRange: '18 – 50 ק״ג',
-      weatherproof: true
+      material: 'ניילון מחוזק עם אבזם מתכת',
+      sizes: ['מתכוונן'],
+      weightRange: 'לכל הגדלים',
+      weatherproof: false
     },
-    aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000001.html',
-    pairsWith: ['p6', 'p2']
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p11', 'p7']
   },
   {
     id: 'p2',
-    slug: 'waterproof-led-collar',
-    title: 'קולר LED בטיחות עמיד למים',
+    slug: 'training-ring-puller',
+    title: 'טבעת אילוף וגרירה — צעצוע פולר עמיד',
     description:
-      'קולר LED נטען ב-USB עם 3 מצבי תאורה, עמידות מלאה למים ועד 12 שעות סוללה. נראה ממרחק של עד 300 מטר לטיולי לילה ולריצות שטח.',
-    price: 8999,
-    originalPrice: 12999,
-    stockStatus: 'in-stock',
-    images: [
-      'https://images.unsplash.com/photo-1568572933382-74d440642117?w=1200',
-      'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=1200'
-    ],
-    category: 'outdoor-gear',
-    rating: 4.7,
-    reviewCount: 942,
-    spec: {
-      material: 'סיליקון על גבי רצועת ניילון מחוזקת',
-      sizes: ['S', 'M', 'L'],
-      weightRange: '7 – 40 ק״ג',
-      weatherproof: true
-    },
-    aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000002.html',
-    pairsWith: ['p1', 'p6']
-  },
-  {
-    id: 'p3',
-    slug: 'long-range-fetching-toy',
-    title: 'משגר כדור לטווח ארוך',
-    description:
-      'משגר עם קפיץ שזורק כדור טניס צף עד 23 מטרים ביד אחת. מושלם לכלבים אוהבי אחזור ולימים על שפת הים.',
-    price: 6999,
+      'טבעת EVA קלת משקל וצפה על המים, מצוינת לגרירה, אחזור ומשחק בחוץ. בנויה לעמוד בנשיכות חזקות.',
+    price: 1339,
     stockStatus: 'in-stock',
     images: [
       'https://images.unsplash.com/photo-1561406636-b80293969660?w=1200',
       'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200'
     ],
     category: 'interactive-toys',
-    rating: 4.6,
-    reviewCount: 612,
+    rating: 4.8,
+    reviewCount: 441,
     spec: {
-      material: 'משגר מניילון משוריין, כדור גומי טבעי',
+      material: 'קצף EVA קל וצף',
+      sizes: ['קטן', 'גדול'],
+      weightRange: 'לכל הגדלים',
+      weatherproof: true
+    },
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p4', 'p11']
+  },
+  {
+    id: 'p3',
+    slug: 'pet-sofa-bed',
+    title: 'ספת שינה מפנקת לכלבים — מיטה גדולה',
+    description:
+      'ספה רכה ונעימה לכלבים גדולים, עם דפנות מוגבהות לתחושת ביטחון. עיצוב נקי שמתאים לכל חלל בבית.',
+    price: 4798,
+    originalPrice: 15305,
+    stockStatus: 'in-stock',
+    images: [
+      'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200',
+      'https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=1200'
+    ],
+    category: 'beds-furniture',
+    rating: 4.5,
+    reviewCount: 1000,
+    spec: {
+      material: 'בד רך עם מילוי סיבים',
+      sizes: ['M', 'L', 'XL'],
+      weightRange: '15 – 45 ק״ג',
+      weatherproof: false
+    },
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p9', 'p10']
+  },
+  {
+    id: 'p4',
+    slug: 'eva-dog-toy-pack',
+    title: 'סט צעצועי EVA לכלב (4 חלקים) — פריזבי, כדור וחבל',
+    description:
+      'ערכת משחק הכוללת פריזבי EVA צף, שני כדורים וחבל גרירה. מושלם לאימון, לאחזור ולפעילות גופנית.',
+    price: 1427,
+    originalPrice: 3375,
+    stockStatus: 'in-stock',
+    images: [
+      'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200',
+      'https://images.unsplash.com/photo-1561406636-b80293969660?w=1200'
+    ],
+    category: 'interactive-toys',
+    rating: 4.7,
+    reviewCount: 850,
+    spec: {
+      material: 'קצף EVA, גומי טבעי וחבל כותנה',
       sizes: ['סטנדרטי'],
       weightRange: 'לכל הגדלים',
       weatherproof: true
     },
-    aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000003.html',
-    pairsWith: ['p4']
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p2', 'p5']
   },
   {
-    id: 'p4',
-    slug: 'portable-dog-water-bottle',
-    title: 'בקבוק מים נייד לשטח',
+    id: 'p5',
+    slug: 'tennis-balls-12-pack',
+    title: 'סט 12 כדורי טניס עם תיק רשת לאימון',
     description:
-      'בקבוק 560 מ״ל אטום לדליפות עם מכסה זרבובית הפיכה לפעולה ביד אחת. סיליקון בדרגת מזון, ללא BPA, מתאים לכל תיק נשיאה.',
-    price: 5999,
-    originalPrice: 7999,
+      'כדורי טניס איכותיים לאימון בעצימות גבוהה, מגיעים בתיק רשת נוח לנשיאה ולאחסון. מושלם לאחזור בפארק ובחוף.',
+    price: 3627,
+    originalPrice: 7716,
+    stockStatus: 'in-stock',
+    images: [
+      'https://images.unsplash.com/photo-1561406636-b80293969660?w=1200'
+    ],
+    category: 'interactive-toys',
+    rating: 4.6,
+    reviewCount: 370,
+    spec: {
+      material: 'לבד ממוחזר, גומי טבעי',
+      sizes: ['סטנדרטי 6.5 ס״מ'],
+      weightRange: 'לכל הגדלים',
+      weatherproof: true
+    },
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p4', 'p2']
+  },
+  {
+    id: 'p6',
+    slug: 'collapsible-food-storage',
+    title: 'מכל אחסון אוכל מתקפל — עד 15 ק״ג',
+    description:
+      'מכל מתקפל לאחסון אוכל יבש לכלבים ולחתולים, עם מכסה אטום ובסיס על גלגלים. שומר על האוכל טרי ומגן מפני לחות ומזיקים.',
+    price: 6227,
+    originalPrice: 18316,
+    stockStatus: 'in-stock',
+    images: [
+      'https://images.unsplash.com/photo-1530041686259-53ddc28d3713?w=1200',
+      'https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=1200'
+    ],
+    category: 'feeding',
+    rating: 4.6,
+    reviewCount: 703,
+    spec: {
+      material: 'סיליקון בדרגת מזון + PP',
+      sizes: ['13 ק״ג', '33 ק״ג'],
+      weightRange: 'לכל הגדלים',
+      weatherproof: false
+    },
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p7']
+  },
+  {
+    id: 'p7',
+    slug: 'portable-water-bottle',
+    title: 'בקבוק מים נייד לכלב — לטיולים בחוץ',
+    description:
+      'בקבוק שתייה נייד עם קערה משולבת ולחצן הזרמה לפעולה ביד אחת. ללא BPA, מתאים לטיולים, לריצות ולביקורי חוף.',
+    price: 3052,
+    originalPrice: 6359,
     stockStatus: 'in-stock',
     images: [
       'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200',
       'https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?w=1200'
     ],
-    category: 'outdoor-gear',
+    category: 'feeding',
     rating: 4.9,
     reviewCount: 2104,
     spec: {
-      material: 'Tritan ללא BPA + סיליקון בדרגת מזון',
-      sizes: ['560 מ״ל', '800 מ״ל'],
+      material: 'Tritan ללא BPA + סיליקון',
+      sizes: ['350 מ״ל', '550 מ״ל'],
       weightRange: 'לכל הגדלים',
       weatherproof: true
     },
-    aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000004.html',
-    pairsWith: ['p5', 'p3']
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p6', 'p1']
   },
   {
-    id: 'p5',
-    slug: 'cooling-vest',
-    title: 'אפוד קירור התאדותי',
+    id: 'p8',
+    slug: 'pinecone-slow-feeder',
+    title: 'צעצוע אצטרובל — האכלה איטית ופאזל לכלבים',
     description:
-      'בד קירור תלת-שכבתי שנשאר קר עד 6 שעות. פשוט להרטיב, לסחוט ולסגור עם רוכסן — מגן על כלבים פעילים בחום הקיץ.',
-    price: 11999,
-    originalPrice: 16999,
-    stockStatus: 'low-stock',
+      'צעצוע גומי בצורת אצטרובל למאכל איטי שממלאים בנשנושים. מאתגר את הכלב, מאט אכילה ומספק העשרה מנטלית.',
+    price: 3069,
+    originalPrice: 6394,
+    stockStatus: 'in-stock',
     images: [
-      'https://images.unsplash.com/photo-1530041686259-53ddc28d3713?w=1200',
       'https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=1200'
     ],
-    category: 'outdoor-gear',
-    rating: 4.5,
-    reviewCount: 388,
+    category: 'interactive-toys',
+    rating: 4.7,
+    reviewCount: 600,
     spec: {
-      material: 'מיקרופייבר PVA מתאדה, מעטפת ריפסטופ',
-      sizes: ['M', 'L', 'XL'],
-      weightRange: '14 – 45 ק״ג',
-      weatherproof: false
+      material: 'גומי טבעי ללא רעילים',
+      sizes: ['קטן', 'בינוני'],
+      weightRange: 'לכלבים קטנים ובינוניים',
+      weatherproof: true
     },
-    aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000005.html',
-    pairsWith: ['p4', 'p1']
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p2', 'p5']
   },
   {
-    id: 'p6',
-    slug: 'reinforced-hiking-leash',
-    title: 'רצועת טיולים מחוזקת עם בנג׳י',
+    id: 'p9',
+    slug: 'elevated-dog-bed-all-season',
+    title: 'מיטת כלב מורמת — לכל עונה, פנים וחוץ, עמידה למים',
     description:
-      'רצועה באורך 1.8 מטר מחבל טיפוס איכותי, עם בנג׳י סופג זעזועים, ידית תנועה ואבזם נעילה. נבדקה לעמידות של 1,360 ק״ג.',
-    price: 12999,
+      'מיטה מורמת עם משטח רשת אווירי ומסגרת מתכת חזקה. מתאימה לחצר, לטראסה ולשימוש בתוך הבית.',
+    price: 11977,
+    originalPrice: 27159,
+    stockStatus: 'in-stock',
+    images: [
+      'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=1200',
+      'https://images.unsplash.com/photo-1530041686259-53ddc28d3713?w=1200'
+    ],
+    category: 'beds-furniture',
+    rating: 4.6,
+    reviewCount: 320,
+    spec: {
+      material: 'מסגרת מתכת מצופה, משטח Textilene',
+      sizes: ['M', 'L', 'XL'],
+      weightRange: '15 – 60 ק״ג',
+      weatherproof: true
+    },
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p10', 'p3']
+  },
+  {
+    id: 'p10',
+    slug: 'cooling-elevated-bed',
+    title: 'מיטת קירור מורמת לכלב — מאווררת',
+    description:
+      'מסגרת מתכת חזקה עם משטח רשת המאפשר זרימת אוויר ומונע התחממות. אידיאלית לימי קיץ ולמרפסות חמימות.',
+    price: 5236,
+    originalPrice: 10908,
     stockStatus: 'in-stock',
     images: [
       'https://images.unsplash.com/photo-1601758003122-53c40e686a19?w=1200',
-      'https://images.unsplash.com/photo-1507146426996-ef05306b995a?w=1200'
+      'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200'
     ],
-    category: 'harnesses-leashes',
-    rating: 4.9,
-    reviewCount: 1651,
+    category: 'beds-furniture',
+    rating: 4.5,
+    reviewCount: 250,
     spec: {
-      material: 'חבל טיפוס 10 מ״מ, אבזם אלומיניום מאונדז',
-      sizes: ['1.8 מטר'],
-      weightRange: '9 – 68 ק״ג',
+      material: 'מתכת מצופה + משטח רשת מתח גבוה',
+      sizes: ['S', 'M', 'L'],
+      weightRange: '5 – 50 ק״ג',
       weatherproof: true
     },
-    aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000006.html',
-    pairsWith: ['p1', 'p2']
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p9', 'p3']
+  },
+  {
+    id: 'p11',
+    slug: 'training-disc',
+    title: 'דיסק אילוף עמיד — פריזבי לאימון ולשעשוע',
+    description:
+      'דיסק רך וגמיש, ידידותי לשיני הכלב. אידיאלי לאימון אחזור ולמשחקי שתף בקו הים ובפארק.',
+    price: 1456,
+    originalPrice: 3033,
+    stockStatus: 'in-stock',
+    images: [
+      'https://images.unsplash.com/photo-1507146426996-ef05306b995a?w=1200',
+      'https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=1200'
+    ],
+    category: 'training',
+    rating: 4.5,
+    reviewCount: 124,
+    spec: {
+      material: 'פלסטיק גמיש ידידותי לפה',
+      sizes: ['סטנדרטי 22 ס״מ'],
+      weightRange: 'לכל הגדלים',
+      weatherproof: true
+    },
+    aliexpressUrl: WISHLIST_URL,
+    pairsWith: ['p2', 'p4']
   }
 ];
 

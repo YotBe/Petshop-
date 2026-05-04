@@ -1,5 +1,8 @@
 import type { Order } from './types';
 
+const WISHLIST_URL =
+  'https://www.aliexpress.com/p/wish-manage/share.html?type=wish&wishGroupId=900000003473719&spreadId=2ED41EE421F70C6BB3CF25DEEA87D907262B0DC22F17CFAACEA24126B7CFD7A4';
+
 // In-memory mock orders. Swap for Supabase / Vercel Postgres in production.
 export const MOCK_ORDERS: Order[] = [
   {
@@ -15,23 +18,23 @@ export const MOCK_ORDERS: Order[] = [
     },
     lines: [
       {
-        productId: 'p1',
-        title: 'רתמה טקטית מחוזקת לעבודה',
+        productId: 'p3',
+        title: 'ספת שינה מפנקת לכלבים',
         quantity: 1,
-        price: 19999,
-        aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000001.html'
+        price: 4798,
+        aliexpressUrl: WISHLIST_URL
       },
       {
-        productId: 'p6',
-        title: 'רצועת טיולים מחוזקת עם בנג׳י',
+        productId: 'p9',
+        title: 'מיטת כלב מורמת — לכל עונה',
         quantity: 1,
-        price: 12999,
-        aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000006.html'
+        price: 11977,
+        aliexpressUrl: WISHLIST_URL
       }
     ],
-    subtotal: 32998,
-    shipping: 0,
-    total: 32998,
+    subtotal: 16775,
+    shipping: 2499,
+    total: 19274,
     status: 'pending'
   },
   {
@@ -47,23 +50,23 @@ export const MOCK_ORDERS: Order[] = [
     },
     lines: [
       {
-        productId: 'p4',
-        title: 'בקבוק מים נייד לשטח',
+        productId: 'p7',
+        title: 'בקבוק מים נייד לכלב',
         quantity: 2,
-        price: 5999,
-        aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000004.html'
+        price: 3052,
+        aliexpressUrl: WISHLIST_URL
       },
       {
-        productId: 'p5',
-        title: 'אפוד קירור התאדותי',
+        productId: 'p4',
+        title: 'סט צעצועי EVA לכלב (4 חלקים)',
         quantity: 1,
-        price: 11999,
-        aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000005.html'
+        price: 1427,
+        aliexpressUrl: WISHLIST_URL
       }
     ],
-    subtotal: 23997,
-    shipping: 0,
-    total: 23997,
+    subtotal: 7531,
+    shipping: 2499,
+    total: 10030,
     status: 'pending'
   }
 ];
