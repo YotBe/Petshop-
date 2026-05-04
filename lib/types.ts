@@ -111,6 +111,13 @@ export interface FulfillmentTimelineEntry {
   note?: string;
 }
 
+/**
+ * Order delivery method. 'pickup' means the customer collects from our
+ * Tel Aviv base; we coordinate the time slot manually via WhatsApp/email
+ * and skip the final-mile shipping cost & label.
+ */
+export type DeliveryMethod = 'delivery' | 'pickup';
+
 export interface Order {
   id: string;
   createdAt: string;
@@ -140,6 +147,8 @@ export interface Order {
   finalTrackingNumber?: string;
   /** Internal notes — QC findings, repackaging issues, etc. Not customer-visible. */
   notes?: string;
+  /** Delivery method. Absent ⇒ 'delivery' (backward-compat with older orders). */
+  deliveryMethod?: DeliveryMethod;
 }
 
 export interface CategoryMeta {

@@ -9,8 +9,10 @@ import {
   Plane,
   PackageCheck,
   Inbox,
-  Truck
+  Truck,
+  Store
 } from 'lucide-react';
+import { pickupCoordinationUrl } from '@/lib/delivery';
 import { MOCK_ORDERS } from '@/lib/orders';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -182,14 +184,17 @@ export default function AdminPage({
 
 function OrderCard({ order }: { order: Order }) {
   const fs = order.fulfillmentStatus;
-  const shippingText = [
-    order.customer.name,
-    order.customer.phone,
-    `${order.customer.address}, ${order.customer.city} ${order.customer.postalCode}`,
-    order.customer.country
-  ]
-    .filter(Boolean)
-    .join('\n');
+  const isPickup = order.deliveryMethod === 'pickup';
+  const shippingText = isPickup
+    ? `${order.customer.name}\n${order.customer.phone ?? ''}\nאיסוף עצמי בתל אביב`
+    : [
+        order.customer.name,
+        order.customer.phone,
+        `${order.customer.address}, ${order.customer.city} ${order.customer.postalCode}`,
+        order.customer.country
+      ]
+        .filter(Boolean)
+        .join('\n');
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5">
@@ -201,6 +206,11 @@ function OrderCard({ order }: { order: Order }) {
               {STATUS_LABEL[order.status]}
             </Badge>
             <Badge variant="brand">{FULFILL_LABEL[fs]}</Badge>
+            {isPickup && (
+              <Badge variant="accent" className="inline-flex items-center gap-1">
+                <Store className="h-3 w-3" /> איסוף עצמי
+              </Badge>
+            )}
             {order.trackingUrl && (
               <a
                 href={order.trackingUrl}
@@ -233,10 +243,27 @@ function OrderCard({ order }: { order: Order }) {
           {order.customer.phone && (
             <p className="text-sm text-slate-600 num">{order.customer.phone}</p>
           )}
-          <p className="text-sm text-slate-600">
-            {order.customer.address}, {order.customer.city} {order.customer.postalCode},{' '}
-            {order.customer.country}
-          </p>
+          {isPickup ? (
+            <div className="mt-1 rounded-md bg-accent/10 p-2 text-xs text-slate-700 ring-1 ring-accent/30">
+              <p className="font-semibold text-ink">איסוף עצמי בתל אביב</p>
+              <p className="mt-0.5">תאמו מועד איתו/ה בוואטסאפ — אין צורך להדפיס מדבקת משלוח.</p>
+              {order.customer.phone && (
+                <a
+                  href={pickupCoordinationUrl(order.id, order.customer.name)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-1.5 inline-flex items-center gap-1 text-brand underline-offset-4 hover:underline"
+                >
+                  פתח שיחה לתיאום
+                </a>
+              )}
+            </div>
+          ) : (
+            <p className="text-sm text-slate-600">
+              {order.customer.address}, {order.customer.city} {order.customer.postalCode},{' '}
+              {order.customer.country}
+            </p>
+          )}
 
           {(order.supplierTrackingNumber || order.finalTrackingNumber) && (
             <div className="mt-3 grid grid-cols-1 gap-1 border-t border-slate-200 pt-3 text-xs text-slate-600">

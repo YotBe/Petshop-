@@ -15,6 +15,7 @@ export type AnalyticsEvent =
   | 'checkout_submit_failed'
   | 'checkout_abandoned'
   | 'checkout_completed'
+  | 'checkout_delivery_method'
   | 'newsletter_signup'
   | 'add_to_cart'
   | 'add_bundle';

@@ -25,6 +25,22 @@ export default function LabelPage({ params }: { params: { id: string } }) {
   const order = getOrder(params.id);
   if (!order) return notFound();
 
+  if (order.deliveryMethod === 'pickup') {
+    return (
+      <div className="container max-w-md py-20 text-center">
+        <h1 className="text-2xl font-bold">איסוף עצמי</h1>
+        <p className="mt-2 text-slate-600">
+          הזמנה{' '}
+          <span className="font-mono font-semibold">{order.id}</span> היא לאיסוף
+          עצמי בתל אביב — אין צורך להדפיס מדבקת משלוח.
+        </p>
+        <Button asChild className="mt-6" variant="outline">
+          <Link href="/admin">חזרה למרכז ההזמנות</Link>
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="container max-w-2xl py-8 print:py-0">
       <div className="mb-4 flex items-center justify-between print:hidden">
