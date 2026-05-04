@@ -24,7 +24,11 @@ export default function AddToCartButton({ productId }: { productId: string }) {
   }
 
   return (
-    <div className="mt-6 flex flex-wrap items-center gap-3">
+    <div
+      id="product-add-to-cart"
+      data-sticky-cart-anchor
+      className="mt-6 flex flex-wrap items-center gap-3"
+    >
       <div className="inline-flex items-center rounded-md border border-slate-300">
         <button
           className="p-2 hover:bg-slate-100"
