@@ -30,7 +30,7 @@ export default function ActiveDogs() {
               ביותר שלנו: רתמות מרופדות, בקבוקי שתייה לדרך וצעצועים שלא נשברים.
             </p>
             <Button size="lg" variant="accent" asChild className="mt-6">
-              <Link href="/products?category=outdoor-gear">
+              <Link href="/collections/active-dogs">
                 גלו את הקולקציה <ArrowLeft className="h-4 w-4" />
               </Link>
             </Button>

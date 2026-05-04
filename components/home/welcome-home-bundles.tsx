@@ -30,7 +30,7 @@ export default function WelcomeHomeBundles() {
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:gap-8">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {BUNDLES.map((b) => (
             <BundleCard key={b.id} bundle={b} />
           ))}

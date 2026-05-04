@@ -121,3 +121,28 @@ export interface CategoryMeta {
   description: string;
   icon: string;
 }
+
+export type ReviewStatus = 'pending' | 'approved' | 'rejected';
+
+export type ReviewSort = 'helpful' | 'newest' | 'highest';
+
+export interface Review {
+  id: string;
+  productId: string;
+  /** authenticated user id (Auth.js sub or email) */
+  userId: string;
+  authorName: string;
+  authorEmail: string;
+  rating: 1 | 2 | 3 | 4 | 5;
+  title: string;
+  content: string;
+  status: ReviewStatus;
+  isFlagged: boolean;
+  flagReason?: string;
+  isVerifiedPurchase: boolean;
+  helpfulCount: number;
+  petName?: string;
+  petBreed?: string;
+  petWeight?: string;
+  createdAt: string;
+}

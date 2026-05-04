@@ -55,8 +55,20 @@ export default function AdminPage() {
 
   return (
     <div className="container py-10">
-      <h1 className="text-3xl font-bold">הזמנות</h1>
-      <p className="mt-1 text-slate-600">{MOCK_ORDERS.length} הזמנות ממתינות לטיפול.</p>
+      <header className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="text-3xl font-bold">הזמנות</h1>
+          <p className="mt-1 text-slate-600">
+            <span className="num">{MOCK_ORDERS.length}</span> הזמנות ממתינות לטיפול.
+          </p>
+        </div>
+        <Link
+          href="/admin/reviews"
+          className="text-sm font-medium text-brand hover:underline"
+        >
+          ניהול ביקורות ←
+        </Link>
+      </header>
 
       <div className="mt-6 space-y-4">
         {MOCK_ORDERS.map((order) => (

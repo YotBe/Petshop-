@@ -35,6 +35,23 @@ export const BUNDLES: Bundle[] = [
     ],
     price: 7999,
     badge: 'חיסכון של ₪19'
+  },
+  {
+    id: 'b-adult-welcome',
+    slug: 'adult-welcome',
+    title: 'ערכת בית חדש לכלב מבוגר',
+    audience: 'new-adopter',
+    description:
+      'אימצתם או עברתם לבית חדש? התחלה מושלמת לכלב הבוגר: מיטה מורמת לקיץ, רתמת רכב, בקבוק לטיולים וסט צעצועים שיעבוד את האנרגיה.',
+    heroImage: '/products/IMG_3784.jpeg',
+    items: [
+      { productId: 'p1', quantity: 1 },
+      { productId: 'p9', quantity: 1 },
+      { productId: 'p7', quantity: 1 },
+      { productId: 'p4', quantity: 1 }
+    ],
+    price: 13999,
+    badge: 'חיסכון של ₪30'
   }
 ];
 
