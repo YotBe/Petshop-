@@ -3,6 +3,7 @@ import { Star, Truck, ShieldCheck, Undo2 } from 'lucide-react';
 import { getProduct, getRelated, PRODUCTS } from '@/lib/products';
 import ProductGallery from '@/components/product/product-gallery';
 import FrequentlyBoughtTogether from '@/components/product/frequently-bought-together';
+import Reviews from '@/components/product/reviews';
 import AddToCartButton from './add-to-cart-button';
 import { Badge } from '@/components/ui/badge';
 import { discountPct, formatILS } from '@/lib/utils';
@@ -16,6 +17,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   if (!product) return notFound();
   const related = getRelated(product.id);
   const pct = discountPct(product.price, product.originalPrice);
+  const showSizeChart = product.category === 'harnesses-leashes';
 
   return (
     <div className="container py-10">
@@ -76,11 +78,11 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 <dd className="font-medium">{product.spec.material}</dd>
               </div>
               <div>
-                <dt className="text-slate-500">מידות</dt>
+                <dt className="text-slate-500">מידות זמינות</dt>
                 <dd className="font-medium">{product.spec.sizes.join(' · ')}</dd>
               </div>
               <div>
-                <dt className="text-slate-500">מומלץ לכלבים במשקל</dt>
+                <dt className="text-slate-500">מתאים לכלבים במשקל</dt>
                 <dd className="font-medium">{product.spec.weightRange}</dd>
               </div>
               <div>
@@ -89,30 +91,38 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               </div>
             </dl>
 
-            <h3 className="mt-5 text-sm font-semibold">טבלת מידות (היקף חזה)</h3>
-            <div className="mt-2 overflow-hidden rounded-md border border-slate-200 text-sm">
-              <table className="w-full">
-                <thead className="bg-slate-50 text-start text-slate-500">
-                  <tr>
-                    <th className="px-3 py-2 text-start">מידה</th>
-                    <th className="px-3 py-2 text-start">היקף חזה</th>
-                    <th className="px-3 py-2 text-start">משקל כלב</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-t"><td className="px-3 py-2">S</td><td className="px-3 py-2">40–50 ס״מ</td><td className="px-3 py-2">7–14 ק״ג</td></tr>
-                  <tr className="border-t"><td className="px-3 py-2">M</td><td className="px-3 py-2">50–66 ס״מ</td><td className="px-3 py-2">14–27 ק״ג</td></tr>
-                  <tr className="border-t"><td className="px-3 py-2">L</td><td className="px-3 py-2">66–81 ס״מ</td><td className="px-3 py-2">27–41 ק״ג</td></tr>
-                  <tr className="border-t"><td className="px-3 py-2">XL</td><td className="px-3 py-2">81–102 ס״מ</td><td className="px-3 py-2">41–59 ק״ג</td></tr>
-                </tbody>
-              </table>
-            </div>
+            {showSizeChart && (
+              <>
+                <h3 className="mt-5 text-sm font-semibold">טבלת מידות (היקף חזה)</h3>
+                <div className="mt-2 overflow-hidden rounded-md border border-slate-200 text-sm">
+                  <table className="w-full">
+                    <thead className="bg-slate-50 text-start text-slate-500">
+                      <tr>
+                        <th className="px-3 py-2 text-start">מידה</th>
+                        <th className="px-3 py-2 text-start">היקף חזה</th>
+                        <th className="px-3 py-2 text-start">משקל כלב</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-t"><td className="px-3 py-2">S</td><td className="px-3 py-2">40–50 ס״מ</td><td className="px-3 py-2">7–14 ק״ג</td></tr>
+                      <tr className="border-t"><td className="px-3 py-2">M</td><td className="px-3 py-2">50–66 ס״מ</td><td className="px-3 py-2">14–27 ק״ג</td></tr>
+                      <tr className="border-t"><td className="px-3 py-2">L</td><td className="px-3 py-2">66–81 ס״מ</td><td className="px-3 py-2">27–41 ק״ג</td></tr>
+                      <tr className="border-t"><td className="px-3 py-2">XL</td><td className="px-3 py-2">81–102 ס״מ</td><td className="px-3 py-2">41–59 ק״ג</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
 
       <div className="mt-12">
         <FrequentlyBoughtTogether base={product} related={related} />
+      </div>
+
+      <div className="mt-8">
+        <Reviews productId={product.id} rating={product.rating} count={product.reviewCount} />
       </div>
     </div>
   );

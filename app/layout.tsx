@@ -3,6 +3,8 @@ import { Heebo } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
+import PromoBar from '@/components/layout/promo-bar';
+import WhatsAppButton from '@/components/layout/whatsapp-button';
 import CartDrawer from '@/components/cart/cart-drawer';
 
 const heebo = Heebo({
@@ -14,17 +16,19 @@ const heebo = Heebo({
 export const metadata: Metadata = {
   title: 'פטשופ — ציוד פרימיום לחבר הפעיל שלך',
   description:
-    'ציוד מובחר ועמיד לכלבים הרפתקנים: רתמות, רצועות, ציוד שטח, כלי אילוף וצעצועים אינטראקטיביים.'
+    'ציוד מובחר ועמיד לכלבים הרפתקנים: רתמות, רצועות, ציוד שטח, מיטות, כלי אילוף וצעצועים אינטראקטיביים.'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="he" dir="rtl" className={heebo.variable}>
       <body className={heebo.className}>
+        <PromoBar />
         <Navbar />
         <main className="min-h-[calc(100vh-200px)]">{children}</main>
         <CartDrawer />
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );
