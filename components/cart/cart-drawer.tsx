@@ -84,7 +84,7 @@ export default function CartDrawer() {
               <span className="num whitespace-nowrap font-semibold">{formatILS(subtotal())}</span>
             </div>
             <p className="mt-1 text-xs text-slate-500">משלוח ומיסים מחושבים בעמוד התשלום.</p>
-            <Button asChild size="lg" className="mt-4 w-full">
+            <Button asChild size="lg" variant="accent" className="mt-4 w-full">
               <Link href="/checkout" onClick={close}>לתשלום</Link>
             </Button>
           </div>

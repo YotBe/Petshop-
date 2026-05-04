@@ -44,11 +44,12 @@ export default function AddToCartButton({ productId }: { productId: string }) {
       </div>
       <Button
         size="lg"
+        variant="accent"
         className="flex-1 min-w-[180px]"
         disabled={soldOut}
         onClick={handleAdd}
       >
-        {soldOut ? 'אזל מהמלאי' : 'הוסף לעגלה'}
+        {soldOut ? 'אזל מהמלאי' : 'הוסיפו לעגלה'}
       </Button>
     </div>
   );
