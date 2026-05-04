@@ -11,15 +11,22 @@ const config: Config = {
     container: { center: true, padding: '1rem', screens: { '2xl': '1280px' } },
     extend: {
       colors: {
+        // 'Sunny Field' palette: vibrant orange = primary brand;
+        // dark forest green = trust / authoritative surfaces.
         brand: {
-          DEFAULT: '#0F766E',
-          dark: '#0B5953',
+          DEFAULT: '#F97316',
+          dark: '#C2410C',
           accent: '#F59E0B'
         },
         accent: {
           DEFAULT: '#F97316',
           dark: '#EA580C',
           soft: '#FFEDD5'
+        },
+        forest: {
+          DEFAULT: '#14532D',
+          dark: '#0B3B20',
+          soft: '#DCFCE7'
         },
         cream: '#FBF7F1',
         ink: '#0F172A',
