@@ -33,23 +33,23 @@ export default function ProductCard({ product }: { product: Product }) {
     <div className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_4px_20px_-8px_rgba(15,23,42,0.08)] transition hover:shadow-[0_8px_28px_-8px_rgba(15,23,42,0.18)]">
       <Link
         href={`/products/${product.id}`}
-        className="relative block aspect-square overflow-hidden bg-slate-100"
+        className="relative block aspect-square overflow-hidden bg-slate-50"
       >
         <Image
           src={product.images[0]}
           alt={product.title}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"
-          className="object-cover zoom-on-hover"
+          className="object-contain p-3 transition duration-500 group-hover:scale-[1.04]"
         />
-        <div className="absolute start-3 top-3 flex flex-col gap-1.5">
-          {onSale && <Badge variant="accent">חסכו {pct}%</Badge>}
+        <div className="absolute start-2.5 top-2.5 flex flex-col gap-1.5">
+          {onSale && <Badge variant="sale">חסכו {pct}%</Badge>}
           {product.stockStatus === 'low-stock' && (
             <Badge variant="warning">מלאי נמוך</Badge>
           )}
         </div>
         {label && (
-          <div className="absolute end-3 top-3">
+          <div className="absolute end-2.5 top-2.5">
             <Badge variant={label.variant}>{label.text}</Badge>
           </div>
         )}

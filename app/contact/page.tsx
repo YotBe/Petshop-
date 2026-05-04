@@ -12,8 +12,8 @@ const CHANNELS = [
   {
     Icon: MessageCircle,
     label: 'וואטסאפ',
-    value: '050-0000000',
-    href: 'https://wa.me/972500000000',
+    value: '055-881-0183',
+    href: 'https://wa.me/972558810183',
     note: 'הכי מהיר — מענה תוך דקות בשעות הפעילות'
   },
   {

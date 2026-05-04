@@ -1,6 +1,5 @@
-// IMPORTANT: replace the phone number below with the real store WhatsApp.
-// Format: country code + number, no leading + or spaces. e.g. 972501234567
-const WHATSAPP_NUMBER = '972501234567';
+// Format: country code + number, no leading + or spaces.
+const WHATSAPP_NUMBER = '972558810183';
 const PREFILLED_MESSAGE = 'שלום! יש לי שאלה לגבי מוצר באתר...';
 
 export default function WhatsAppButton() {
