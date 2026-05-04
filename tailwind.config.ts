@@ -16,6 +16,13 @@ const config: Config = {
           dark: '#0B5953',
           accent: '#F59E0B'
         },
+        accent: {
+          DEFAULT: '#F97316',
+          dark: '#EA580C',
+          soft: '#FFEDD5'
+        },
+        cream: '#FBF7F1',
+        ink: '#0F172A',
         background: 'hsl(0 0% 100%)',
         foreground: 'hsl(222 47% 11%)',
         muted: 'hsl(210 40% 96%)',
@@ -23,7 +30,8 @@ const config: Config = {
         border: 'hsl(214 32% 91%)'
       },
       fontFamily: {
-        sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif']
+        sans: ['var(--font-heebo)', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['var(--font-rubik)', 'var(--font-heebo)', 'ui-sans-serif', 'system-ui', 'sans-serif']
       }
     }
   },

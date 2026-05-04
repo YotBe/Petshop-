@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Heebo } from 'next/font/google';
+import { Heebo, Rubik } from 'next/font/google';
 import { Toaster } from 'sonner';
 import './globals.css';
 import Navbar from '@/components/layout/navbar';
@@ -14,15 +14,22 @@ const heebo = Heebo({
   variable: '--font-heebo'
 });
 
+const rubik = Rubik({
+  subsets: ['latin', 'hebrew'],
+  display: 'swap',
+  weight: ['500', '600', '700', '800'],
+  variable: '--font-rubik'
+});
+
 export const metadata: Metadata = {
-  title: 'פטשופ — ציוד פרימיום לחבר הפעיל שלך',
+  title: 'פטופיה — ציוד מובחר לחיות שאנחנו אוהבים',
   description:
-    'ציוד מובחר ועמיד לכלבים הרפתקנים: רתמות, רצועות, ציוד שטח, מיטות, כלי אילוף וצעצועים אינטראקטיביים.'
+    'חנות ישראלית לציוד פרימיום לחיות מחמד: רתמות ורצועות, ציוד חוץ, מיטות, צעצועים אינטראקטיביים, אילוף, האכלה והשתייה. שירות בעברית, משלוח מהיר, החזרות קלות.'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="he" dir="rtl" className={heebo.variable}>
+    <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`}>
       <body className={heebo.className}>
         <PromoBar />
         <Navbar />
