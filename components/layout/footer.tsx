@@ -35,11 +35,11 @@ export default function Footer() {
         <section>
           <h4 className="text-sm font-semibold text-white">שירות</h4>
           <ul className="mt-4 space-y-2 text-sm">
-            <li><Link href="/#contact" className="hover:text-white">שאלות נפוצות</Link></li>
-            <li><Link href="/#contact" className="hover:text-white">משלוחים והחזרות</Link></li>
-            <li><Link href="/#contact" className="hover:text-white">טבלת מידות</Link></li>
-            <li><Link href="/#contact" className="hover:text-white">מדיניות פרטיות</Link></li>
-            <li><Link href="/#contact" className="hover:text-white">תקנון</Link></li>
+            <li><Link href="/contact" className="hover:text-white">שאלות נפוצות</Link></li>
+            <li><Link href="/contact" className="hover:text-white">משלוחים והחזרות</Link></li>
+            <li><Link href="/contact" className="hover:text-white">טבלת מידות</Link></li>
+            <li><Link href="/about" className="hover:text-white">אודות פטופיה</Link></li>
+            <li><Link href="/contact" className="hover:text-white">צור קשר</Link></li>
           </ul>
         </section>
 

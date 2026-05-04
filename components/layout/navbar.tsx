@@ -11,8 +11,8 @@ const PRIMARY_LINKS = [
   { href: '/products', label: 'כל המוצרים' },
   { href: '/#deals', label: 'מבצעים' },
   { href: '/#top-rated', label: 'הכי מדורג' },
-  { href: '/#about', label: 'אודות' },
-  { href: '/#contact', label: 'צור קשר' }
+  { href: '/about', label: 'אודות' },
+  { href: '/contact', label: 'צור קשר' }
 ] as const;
 
 export default function Navbar() {
