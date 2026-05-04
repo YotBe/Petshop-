@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>פטשופ — תשלום</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .checkout-header {
+      background: var(--ink); color: var(--paper);
+      padding: 20px 0; border-bottom: 2px solid var(--ink);
+    }
+    .checkout-header__inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .checkout-header__logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 18px; }
+    .checkout-header__secure { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,252,245,.6); }
+    .checkout-header__secure svg { color: var(--orange); }
+
+    .checkout-steps {
+      background: var(--cream); border-bottom: 2px solid var(--ink);
+      padding: 14px 0;
+    }
+    .checkout-steps__inner { display: flex; align-items: center; gap: 0; }
+    .checkout-step {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 600; color: var(--slate-400);
+      padding: 0 20px 0 0;
+    }
+    .checkout-step.is-active { color: var(--ink); }
+    .checkout-step.is-done { color: #16a34a; }
+    .checkout-step__num {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; flex-shrink: 0;
+    }
+    .checkout-step.is-active .checkout-step__num { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .checkout-step__divider { width: 24px; height: 2px; background: var(--slate-200); margin: 0 8px; flex-shrink: 0; }
+
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 40px;
+      padding: 40px 0 80px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .checkout-layout { grid-template-columns: 1fr; }
+      .checkout-summary { order: -1; }
+    }
+
+    /* Form */
+    .checkout-form-section { margin-bottom: 32px; }
+    .checkout-form-section__title {
+      font-size: 18px; font-weight: 800;
+      margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 2px solid var(--ink);
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-grid--full { grid-template-columns: 1fr; }
+    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-field { display: flex; flex-direction: column; gap: 5px; }
+    .form-field--full { grid-column: 1/-1; }
+    .form-label { font-size: 12px; font-weight: 700; }
+    .form-input {
+      font: inherit; font-size: 14px;
+      padding: 11px 14px;
+      border: 2px solid var(--slate-300);
+      background: var(--paper); color: var(--ink);
+      outline: none; transition: border-color .15s;
+      border-radius: 0;
+    }
+    .form-input:focus { border-color: var(--ink); }
+    .form-input::placeholder { color: var(--slate-400); }
+
+    .form-row-split { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    @media (max-width: 500px) { .form-row-split { grid-template-columns: 1fr 1fr; } }
+
+    /* Payment methods */
+    .pay-methods { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .pay-method {
+      border: 2px solid var(--slate-300); padding: 8px 16px;
+      font-size: 13px; font-weight: 700; cursor: pointer;
+      transition: all .15s; background: var(--paper);
+    }
+    .pay-method.is-active { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+
+    .card-row { display: grid; grid-template-columns: 1fr 120px 80px; gap: 12px; }
+    @media (max-width: 500px) { .card-row { grid-template-columns: 1fr; } }
+
+    /* Summary sidebar */
+    .checkout-summary {
+      position: sticky; top: 24px;
+    }
+    .checkout-summary__panel {
+      border: 2px solid var(--ink);
+      box-shadow: var(--shadow-ink);
+      background: var(--cream);
+    }
+    .checkout-summary__header {
+      padding: 18px 20px; border-bottom: 2px solid var(--ink);
+      font-size: 16px; font-weight: 800;
+    }
+    .checkout-summary__items { padding: 0 20px; }
+    .checkout-summary__item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 0; border-bottom: 1px solid var(--slate-200);
+    }
+    .checkout-summary__item:last-child { border-bottom: none; }
+    .checkout-summary__item-img {
+      width: 56px; height: 56px; object-fit: cover; flex-shrink: 0;
+      border: 1px solid var(--slate-200);
+    }
+    .checkout-summary__item-name { font-size: 13px; font-weight: 600; flex: 1; line-height: 1.4; }
+    .checkout-summary__item-price { font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .checkout-summary__item-qty {
+      font-size: 11px; color: var(--slate-500);
+      background: var(--slate-200); padding: 1px 6px; border-radius: 999px;
+    }
+    .checkout-summary__totals { padding: 16px 20px; border-top: 2px solid var(--ink); display: flex; flex-direction: column; gap: 8px; }
+    .checkout-summary__total-row { display: flex; justify-content: space-between; font-size: 13px; }
+    .checkout-summary__total-row--grand { font-size: 18px; font-weight: 800; margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--slate-200); }
+    .checkout-summary__shipping { color: #16a34a; font-weight: 700; }
+
+    .checkout-submit {
+      padding: 16px 20px; border-top: 2px solid var(--ink);
+    }
+    .checkout-trust-mini {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; color: var(--slate-500);
+      margin-top: 10px; justify-content: center;
+    }
+    .checkout-trust-mini svg { color: var(--orange); }
+
+    /* Success screen */
+    .checkout-success {
+      display: none;
+      text-align: center;
+      padding: 80px 0;
+    }
+    .checkout-success__icon {
+      width: 72px; height: 72px;
+      background: #16a34a; color: #fff;
+      border-radius: 50%; border: 3px solid var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: var(--shadow-ink);
+    }
+    .checkout-success__icon svg { width: 36px; height: 36px; }
+    .checkout-success__title { font-size: 36px; margin-bottom: 12px; }
+    .checkout-success__sub { font-size: 16px; color: var(--slate-600); margin-bottom: 32px; }
+
+    .empty-cart-msg { padding: 60px 0; text-align: center; }
+    .empty-cart-msg h2 { margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    // Checkout has its own minimal header — no full layout mount
+    window.PETSHOP_CART; // pre-init via app.js
+  </script>
+
+  <!-- Custom checkout header (no full navbar) -->
+  <header class="checkout-header">
+    <div class="container">
+      <div class="checkout-header__inner">
+        <a href="index.html" class="checkout-header__logo">
+          <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+            <circle cx="16" cy="20" r="9" fill="#F97316" stroke="#FFFCF5" stroke-width="2"/>
+            <ellipse cx="9" cy="9" rx="3" ry="4" fill="#FFFCF5"/>
+            <ellipse cx="16" cy="6" rx="3" ry="4" fill="#FFFCF5"/>
+            <ellipse cx="23" cy="9" rx="3" ry="4" fill="#FFFCF5"/>
+            <ellipse cx="27" cy="16" rx="2.5" ry="3.5" fill="#FFFCF5"/>
+          </svg>
+          פטשופ
+        </a>
+        <span class="checkout-header__secure">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          תשלום מאובטח SSL
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Steps -->
+  <div class="checkout-steps">
+    <div class="container">
+      <div class="checkout-steps__inner">
+        <div class="checkout-step is-active" id="step-1">
+          <span class="checkout-step__num">1</span> פרטי משלוח
+        </div>
+        <div class="checkout-step__divider"></div>
+        <div class="checkout-step" id="step-2">
+          <span class="checkout-step__num">2</span> תשלום
+        </div>
+        <div class="checkout-step__divider"></div>
+        <div class="checkout-step" id="step-3">
+          <span class="checkout-step__num">3</span> אישור הזמנה
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart empty state -->
+  <div id="empty-cart-state" class="empty-cart-msg" style="display:none;">
+    <div class="container">
+      <h2>העגלה ריקה</h2>
+      <p style="color:var(--slate-500);margin-bottom:24px;">לא נמצאו מוצרים בעגלה. חזרו לחנות להוסיף מוצרים.</p>
+      <a href="products.html" class="btn btn--primary btn--lg">לקטלוג</a>
+    </div>
+  </div>
+
+  <!-- Checkout layout -->
+  <div id="checkout-main" style="display:none;">
+    <div class="container">
+      <div class="checkout-layout">
+        <!-- Form -->
+        <div id="checkout-form-area">
+          <!-- Step 1: Shipping -->
+          <div id="shipping-step">
+            <div class="checkout-form-section">
+              <h2 class="checkout-form-section__title">פרטי משלוח</h2>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label class="form-label" for="f-first">שם פרטי *</label>
+                  <input class="form-input" id="f-first" type="text" placeholder="שרה" autocomplete="given-name" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="f-last">שם משפחה *</label>
+                  <input class="form-input" id="f-last" type="text" placeholder="כהן" autocomplete="family-name" />
+                </div>
+                <div class="form-field form-field--full">
+                  <label class="form-label" for="f-email">אימייל *</label>
+                  <input class="form-input" id="f-email" type="email" placeholder="sara@example.com" autocomplete="email" />
+                </div>
+                <div class="form-field form-field--full">
+                  <label class="form-label" for="f-phone">טלפון *</label>
+                  <input class="form-input" id="f-phone" type="tel" placeholder="050-000-0000" autocomplete="tel" />
+                </div>
+                <div class="form-field form-field--full">
+                  <label class="form-label" for="f-address">כתובת *</label>
+                  <input class="form-input" id="f-address" type="text" placeholder="רחוב הורד 14 דירה 3" autocomplete="street-address" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="f-city">עיר *</label>
+                  <input class="form-input" id="f-city" type="text" placeholder="תל אביב" autocomplete="address-level2" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="f-zip">מיקוד</label>
+                  <input class="form-input" id="f-zip" type="text" placeholder="6100000" autocomplete="postal-code" />
+                </div>
+              </div>
+            </div>
+            <button class="btn btn--primary btn--lg btn--block" id="to-payment-btn">
+              המשך לתשלום →
+            </button>
+          </div>
+
+          <!-- Step 2: Payment (hidden initially) -->
+          <div id="payment-step" style="display:none;">
+            <button class="btn btn--ghost btn--sm" id="back-to-shipping" style="margin-bottom:20px;">← חזרה לפרטי משלוח</button>
+            <div class="checkout-form-section">
+              <h2 class="checkout-form-section__title">אמצעי תשלום</h2>
+              <div class="pay-methods" id="pay-methods">
+                <button class="pay-method is-active" data-pay="card">כרטיס אשראי</button>
+                <button class="pay-method" data-pay="bit">Bit</button>
+                <button class="pay-method" data-pay="paypal">PayPal</button>
+                <button class="pay-method" data-pay="apple">Apple Pay</button>
+              </div>
+              <div id="card-fields">
+                <div class="form-field" style="margin-bottom:12px;">
+                  <label class="form-label" for="f-card-name">שם בעל הכרטיס *</label>
+                  <input class="form-input" id="f-card-name" type="text" placeholder="SARA COHEN" />
+                </div>
+                <div class="form-field" style="margin-bottom:12px;">
+                  <label class="form-label" for="f-card-num">מספר כרטיס *</label>
+                  <input class="form-input" id="f-card-num" type="text" placeholder="•••• •••• •••• ••••" maxlength="19" />
+                </div>
+                <div class="card-row">
+                  <div class="form-field">
+                    <label class="form-label" for="f-expiry">תוקף *</label>
+                    <input class="form-input" id="f-expiry" type="text" placeholder="MM/YY" maxlength="5" />
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="f-cvv">CVV *</label>
+                    <input class="form-input" id="f-cvv" type="text" placeholder="•••" maxlength="4" />
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="f-payments">תשלומים</label>
+                    <select class="form-input" id="f-payments" style="cursor:pointer;">
+                      <option>1</option><option>3</option><option>6</option><option>12</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div id="alt-pay-msg" style="display:none;padding:24px;background:var(--sage);border:2px solid var(--ink);margin-top:8px;text-align:center;font-size:14px;color:var(--slate-600);">
+                תועברו לסביבת התשלום המאובטחת לאחר לחיצה על ״לשלם״
+              </div>
+            </div>
+            <button class="btn btn--primary btn--lg btn--block" id="place-order-btn">
+              🔒 לשלם ולאשר הזמנה
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <aside class="checkout-summary">
+          <div class="checkout-summary__panel">
+            <div class="checkout-summary__header">סיכום הזמנה</div>
+            <div class="checkout-summary__items" id="summary-items"></div>
+            <div class="checkout-summary__totals" id="summary-totals"></div>
+            <div class="checkout-submit">
+              <div class="checkout-trust-mini">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                מוצפן SSL · אחריות 30 יום
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success screen -->
+  <div class="checkout-success" id="checkout-success">
+    <div class="container">
+      <div class="checkout-success__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h1 class="checkout-success__title">ההזמנה אושרה!</h1>
+      <p class="checkout-success__sub">תודה על הרכישה. אישור ישלח לאימייל שלכם תוך מספר דקות.<br />
+      <span style="font-size:14px;">נשלח תוך 24 שעות עבודה.</span></p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="index.html" class="btn btn--primary btn--lg">חזרה לדף הבית</a>
+        <a href="products.html" class="btn btn--outline btn--lg">המשיכו לקניות</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const Cart = window.PETSHOP_CART;
+    const { getById, fmtPrice } = window.PETSHOP;
+    const ICONS = window.PETSHOP_ICONS;
+
+    function paintSummary() {
+      const items = Cart.items;
+      const subtotal = Cart.subtotal();
+      const shipping = subtotal >= 19900 ? 0 : 1990;
+      const total = subtotal + shipping;
+
+      document.getElementById('summary-items').innerHTML = items.map(it => {
+        const p = getById(it.id);
+        if (!p) return '';
+        return `
+          <div class="checkout-summary__item">
+            <img class="checkout-summary__item-img" src="${p.img}" alt="${p.title}" />
+            <span class="checkout-summary__item-name">${p.title}</span>
+            <span class="checkout-summary__item-qty num">×${it.qty}</span>
+            <span class="checkout-summary__item-price num">₪${fmtPrice(p.price * it.qty)}</span>
+          </div>`;
+      }).join('');
+
+      document.getElementById('summary-totals').innerHTML = `
+        <div class="checkout-summary__total-row">
+          <span>סכום ביניים</span>
+          <span class="num">₪${fmtPrice(subtotal)}</span>
+        </div>
+        <div class="checkout-summary__total-row">
+          <span>משלוח</span>
+          <span class="${shipping === 0 ? 'checkout-summary__shipping' : ''}">${shipping === 0 ? 'חינם' : `₪${fmtPrice(shipping)}`}</span>
+        </div>
+        <div class="checkout-summary__total-row checkout-summary__total-row--grand">
+          <span>סה״כ לתשלום</span>
+          <span class="num">₪${fmtPrice(total)}</span>
+        </div>`;
+    }
+
+    function init() {
+      if (Cart.items.length === 0) {
+        document.getElementById('empty-cart-state').style.display = 'block';
+      } else {
+        document.getElementById('checkout-main').style.display = 'block';
+        paintSummary();
+      }
+    }
+
+    // Step navigation
+    document.getElementById('to-payment-btn').addEventListener('click', () => {
+      document.getElementById('shipping-step').style.display = 'none';
+      document.getElementById('payment-step').style.display = 'block';
+      document.getElementById('step-1').classList.remove('is-active');
+      document.getElementById('step-1').classList.add('is-done');
+      document.getElementById('step-2').classList.add('is-active');
+      window.scrollTo({ top: 0 });
+    });
+
+    document.getElementById('back-to-shipping').addEventListener('click', () => {
+      document.getElementById('shipping-step').style.display = 'block';
+      document.getElementById('payment-step').style.display = 'none';
+      document.getElementById('step-1').classList.add('is-active');
+      document.getElementById('step-1').classList.remove('is-done');
+      document.getElementById('step-2').classList.remove('is-active');
+    });
+
+    document.addEventListener('click', e => {
+      const pm = e.target.closest('[data-pay]');
+      if (pm) {
+        document.querySelectorAll('.pay-method').forEach(b => b.classList.remove('is-active'));
+        pm.classList.add('is-active');
+        const isCard = pm.dataset.pay === 'card';
+        document.getElementById('card-fields').style.display = isCard ? 'block' : 'none';
+        document.getElementById('alt-pay-msg').style.display = isCard ? 'none' : 'block';
+      }
+    });
+
+    document.getElementById('place-order-btn').addEventListener('click', () => {
+      // Simulate order
+      Cart.items = [];
+      Cart.save();
+      document.getElementById('checkout-main').style.display = 'none';
+      document.getElementById('checkout-success').style.display = 'block';
+      document.getElementById('step-2').classList.remove('is-active');
+      document.getElementById('step-2').classList.add('is-done');
+      document.getElementById('step-3').classList.add('is-active');
+    });
+
+    // Card number formatting
+    const cardNum = document.getElementById('f-card-num');
+    cardNum.addEventListener('input', () => {
+      let v = cardNum.value.replace(/\D/g, '').substring(0,16);
+      cardNum.value = v.replace(/(.{4})/g, '$1 ').trim();
+    });
+    const expiry = document.getElementById('f-expiry');
+    expiry.addEventListener('input', () => {
+      let v = expiry.value.replace(/\D/g, '').substring(0,4);
+      if (v.length >= 3) v = v.substring(0,2) + '/' + v.substring(2);
+      expiry.value = v;
+    });
+
+    init();
+  </script>
+</body>
+</html>

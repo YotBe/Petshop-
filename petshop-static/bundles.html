@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>פטשופ — ערכות חיסכון</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .bundles-hero {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 56px 0 48px;
+    }
+    .bundles-hero__eyebrow {
+      font-size: 11px; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 12px;
+    }
+    .bundles-hero__title { font-size: clamp(32px,4vw,56px); }
+    .bundles-hero__title em { font-style: italic; font-weight: 300; color: var(--orange); }
+    .bundles-hero__sub { font-size: 16px; opacity: .65; margin-top: 12px; max-width: 520px; }
+
+    .bundles-section { padding: 64px 0 96px; }
+    .bundles-grid { display: flex; flex-direction: column; gap: 40px; }
+
+    .bundle-card {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      border: 2px solid var(--ink);
+      box-shadow: var(--shadow-ink);
+      overflow: hidden;
+    }
+    @media (max-width: 860px) {
+      .bundle-card { grid-template-columns: 1fr; }
+      .bundle-card__image { height: 240px; }
+    }
+
+    .bundle-card__image {
+      position: relative;
+      overflow: hidden;
+    }
+    .bundle-card__image img {
+      width: 100%; height: 100%; object-fit: cover;
+      position: absolute; inset: 0;
+    }
+    .bundle-card__badge {
+      position: absolute; top: 16px; right: 16px;
+      background: var(--orange); color: #fff;
+      font-size: 11px; font-weight: 800;
+      padding: 5px 14px; letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .bundle-card__body { padding: 36px 40px; background: var(--cream); }
+    .bundle-card__title { font-size: 28px; margin-bottom: 10px; }
+    .bundle-card__desc { font-size: 14px; line-height: 1.7; color: var(--slate-700); margin-bottom: 24px; }
+
+    .bundle-items-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .bundle-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 12px; background: var(--paper);
+      border: 1px solid var(--slate-200);
+    }
+    .bundle-item__img {
+      width: 52px; height: 52px; object-fit: cover; flex-shrink: 0;
+      border: 1px solid var(--slate-200);
+    }
+    .bundle-item__name { font-size: 13px; font-weight: 600; flex: 1; }
+    .bundle-item__price { font-size: 13px; font-weight: 700; white-space: nowrap; }
+
+    .bundle-pricing {
+      display: flex; align-items: flex-end; gap: 16px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .bundle-pricing__total { font-size: 11px; color: var(--slate-500); font-weight: 600; margin-bottom: 4px; }
+    .bundle-pricing__price { font-size: 40px; font-weight: 900; font-family: "Fraunces", serif; line-height: 1; }
+    .bundle-pricing__was { font-size: 16px; text-decoration: line-through; color: var(--slate-400); margin-bottom: 6px; }
+    .bundle-pricing__saving {
+      background: var(--orange); color: #fff;
+      font-size: 12px; font-weight: 800;
+      padding: 6px 14px; align-self: flex-end;
+    }
+
+    /* Why bundles */
+    .why-bundles {
+      background: var(--sage);
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      padding: 56px 0;
+    }
+    .why-bundles__title { font-size: clamp(24px,3vw,36px); margin-bottom: 32px; text-align: center; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 700px) { .why-grid { grid-template-columns: 1fr; } }
+    .why-item {
+      padding: 24px;
+      background: var(--paper);
+      border: 2px solid var(--ink);
+      box-shadow: var(--shadow-ink-sm);
+    }
+    .why-item__icon {
+      width: 40px; height: 40px;
+      background: var(--ink); color: var(--paper);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .why-item__title { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .why-item__desc { font-size: 13px; line-height: 1.6; color: var(--slate-600); }
+  </style>
+</head>
+<body>
+
+  <div class="bundles-hero">
+    <div class="container">
+      <p class="bundles-hero__eyebrow">ערכות חיסכון</p>
+      <h1 class="bundles-hero__title">כל מה שצריך,<br /><em>ביחד</em></h1>
+      <p class="bundles-hero__sub">ערכות שנבנו כדי לחסוך זמן וכסף — כל פריט נבחר ביד כדי להשתלב עם האחרים.</p>
+    </div>
+  </div>
+
+  <section class="bundles-section">
+    <div class="container">
+      <div class="bundles-grid" id="bundles-grid"></div>
+    </div>
+  </section>
+
+  <section class="why-bundles">
+    <div class="container">
+      <h2 class="why-bundles__title">למה ערכות?</h2>
+      <div class="why-grid" id="why-grid"></div>
+    </div>
+  </section>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+  <script>PETSHOP_LAYOUT.mountLayout({ activePath: 'bundles.html' });</script>
+  <script>
+    const { BUNDLES, getById, fmtPrice, bundleListPrice } = window.PETSHOP;
+    const ICONS = window.PETSHOP_ICONS;
+
+    document.getElementById('bundles-grid').innerHTML = BUNDLES.map(b => {
+      const listPrice = bundleListPrice(b);
+      const saving = listPrice - b.price;
+      const items = b.items.map(getById).filter(Boolean);
+      return `
+        <div class="bundle-card">
+          <div class="bundle-card__image">
+            <img src="${b.img}" alt="${b.title}" />
+            ${b.badge ? `<span class="bundle-card__badge">${b.badge}</span>` : ''}
+          </div>
+          <div class="bundle-card__body">
+            <h2 class="bundle-card__title">${b.title}</h2>
+            <p class="bundle-card__desc">${b.desc}</p>
+
+            <div class="bundle-items-list">
+              ${items.map(it => `
+                <div class="bundle-item">
+                  <img class="bundle-item__img" src="${it.img}" alt="${it.title}" loading="lazy" />
+                  <span class="bundle-item__name">${it.title}</span>
+                  <span class="bundle-item__price num">₪${fmtPrice(it.price)}</span>
+                </div>`).join('')}
+            </div>
+
+            <div class="bundle-pricing">
+              <div>
+                <div class="bundle-pricing__total">מחיר הערכה</div>
+                <div class="bundle-pricing__price">₪<span class="num">${fmtPrice(b.price)}</span></div>
+              </div>
+              <div>
+                <div class="bundle-pricing__was" style="direction:ltr;">₪<span class="num">${fmtPrice(listPrice)}</span></div>
+              </div>
+              <div class="bundle-pricing__saving">חיסכון ₪<span class="num">${fmtPrice(saving)}</span></div>
+            </div>
+
+            <button class="btn btn--primary btn--lg btn--block" id="bundle-add-${b.id}">
+              ${ICONS.cart} הוסיפי ערכה לעגלה
+            </button>
+          </div>
+        </div>`;
+    }).join('');
+
+    // Bundle add-to-cart (add all items)
+    BUNDLES.forEach(b => {
+      const btn = document.getElementById(`bundle-add-${b.id}`);
+      if (btn) {
+        btn.addEventListener('click', () => {
+          b.items.forEach(id => window.PETSHOP_CART.add(id, 1));
+          window.PETSHOP_TOAST(`✓ ערכת "${b.title}" נוספה לעגלה`);
+        });
+      }
+    });
+
+    const whyItems = [
+      { icon: ICONS.sparkles, title: 'נבחרו ביחד', desc: 'כל מוצר בערכה נבחר ביד כדי להשתלב עם האחרים — אין כפילויות, אין חסרים.' },
+      { icon: ICONS.package,  title: 'חיסכון אמיתי', desc: 'מחיר הערכה זול ממחיר המוצרים בנפרד — חיסכון מובטח בכל רכישה.' },
+      { icon: ICONS.truck,    title: 'משלוח חינם',   desc: 'כל ערכה עוברת את סף המשלוח החינם — נשלח אליכם ישירות לבית.' }
+    ];
+    document.getElementById('why-grid').innerHTML = whyItems.map(w => `
+      <div class="why-item">
+        <div class="why-item__icon">${w.icon}</div>
+        <div class="why-item__title">${w.title}</div>
+        <p class="why-item__desc">${w.desc}</p>
+      </div>`).join('');
+  </script>
+</body>
+</html>
