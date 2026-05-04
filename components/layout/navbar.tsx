@@ -46,9 +46,11 @@ export default function Navbar() {
               </div>
             )}
           </div>
-          <Link href="/admin" className="px-3 py-2 text-sm font-medium hover:text-brand">
-            ניהול
-          </Link>
+          {process.env.NEXT_PUBLIC_SHOW_ADMIN_LINK === 'true' && (
+            <Link href="/admin" className="px-3 py-2 text-sm font-medium hover:text-brand">
+              ניהול
+            </Link>
+          )}
         </nav>
 
         <form
@@ -95,9 +97,11 @@ export default function Navbar() {
                 {c.title}
               </Link>
             ))}
-            <Link href="/admin" className="px-2 py-2 text-sm font-medium" onClick={() => setMobileOpen(false)}>
-              ניהול
-            </Link>
+            {process.env.NEXT_PUBLIC_SHOW_ADMIN_LINK === 'true' && (
+              <Link href="/admin" className="px-2 py-2 text-sm font-medium" onClick={() => setMobileOpen(false)}>
+                ניהול
+              </Link>
+            )}
           </div>
         </div>
       )}
