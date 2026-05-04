@@ -18,21 +18,21 @@ export default function Hero() {
         aria-hidden
         className="absolute inset-0 bg-gradient-to-l from-slate-900/80 via-slate-900/40 to-transparent"
       />
-      <div className="relative container py-24 md:py-32 max-w-2xl">
+      <div className="relative container py-16 md:py-32 max-w-2xl">
         <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.18em] text-accent">
           עונה חדשה · נבדק בשטח
         </p>
-        <h1 className="mt-3 font-display text-4xl font-extrabold leading-[1.1] md:text-6xl">
+        <h1 className="mt-3 font-display text-[2rem] sm:text-4xl md:text-6xl font-extrabold leading-[1.1]">
           ציוד פרימיום
           <br />
           לחבר הפעיל שלך
         </h1>
-        <p className="mt-5 text-lg text-slate-200 leading-relaxed">
+        <p className="mt-4 md:mt-5 text-base md:text-lg text-slate-200 leading-relaxed">
           מהרתמה ועד הקערה — אנחנו בוחרים רק את הציוד שהיינו קונים לכלב שלנו.
           חנות ישראלית, שירות בעברית, משלוח מהיר עד הבית.
         </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button size="lg" variant="accent" asChild>
+        <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
+          <Button size="lg" variant="accent" asChild className="w-full sm:w-auto">
             <Link href="/products">
               קנו עכשיו <ArrowLeft className="h-4 w-4" />
             </Link>
@@ -41,7 +41,7 @@ export default function Hero() {
             size="lg"
             variant="outline"
             asChild
-            className="text-white border-white/40 hover:bg-white/10"
+            className="w-full sm:w-auto text-white border-white/40 hover:bg-white/10"
           >
             <Link href="/#categories">קנו לפי קטגוריה</Link>
           </Button>

@@ -4,6 +4,7 @@ import { getProduct, getRelated, PRODUCTS } from '@/lib/products';
 import ProductGallery from '@/components/product/product-gallery';
 import FrequentlyBoughtTogether from '@/components/product/frequently-bought-together';
 import Reviews from '@/components/product/reviews';
+import StickyAddToCart from '@/components/product/sticky-add-to-cart';
 import AddToCartButton from './add-to-cart-button';
 import { Badge } from '@/components/ui/badge';
 import { discountPct, formatILS } from '@/lib/utils';
@@ -20,7 +21,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const showSizeChart = product.category === 'harnesses-leashes';
 
   return (
-    <div className="container py-10">
+    <div className="container py-10 pb-28 md:pb-10">
       <div className="grid gap-10 md:grid-cols-2">
         <ProductGallery images={product.images} alt={product.title} />
 
@@ -126,6 +127,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       <div className="mt-8">
         <Reviews productId={product.id} rating={product.rating} count={product.reviewCount} />
       </div>
+
+      <StickyAddToCart product={product} />
     </div>
   );
 }
