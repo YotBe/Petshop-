@@ -93,6 +93,24 @@ export interface OrderTimelineEntry {
   note?: string;
 }
 
+/**
+ * Internal supply-chain state for our hybrid fulfillment model:
+ * supplier → our Tel Aviv base → repackage → customer.
+ * Orthogonal to OrderStatus (which is the customer-visible lifecycle).
+ */
+export type FulfillmentStatus =
+  | 'pending'
+  | 'ordered_from_supplier'
+  | 'arrived_at_base'
+  | 'repackaged'
+  | 'shipped_to_customer';
+
+export interface FulfillmentTimelineEntry {
+  status: FulfillmentStatus;
+  at: string;
+  note?: string;
+}
+
 export interface Order {
   id: string;
   createdAt: string;
@@ -113,6 +131,15 @@ export interface Order {
   timeline: OrderTimelineEntry[];
   trackingUrl?: string;
   trackingCarrier?: string;
+  /** Internal supply-chain state. */
+  fulfillmentStatus: FulfillmentStatus;
+  fulfillmentTimeline: FulfillmentTimelineEntry[];
+  /** Tracking number from the supplier (e.g. AliExpress) for the Tel Aviv leg. */
+  supplierTrackingNumber?: string;
+  /** Tracking number for the final leg from our base to the customer. */
+  finalTrackingNumber?: string;
+  /** Internal notes — QC findings, repackaging issues, etc. Not customer-visible. */
+  notes?: string;
 }
 
 export interface CategoryMeta {

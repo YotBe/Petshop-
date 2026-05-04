@@ -1,4 +1,4 @@
-import type { Order, OrderStatus } from '@/lib/types';
+import type { FulfillmentStatus, Order, OrderStatus } from '@/lib/types';
 
 /**
  * Per-status SMS body. Kept under ~160 chars where possible to fit a single
@@ -23,5 +23,26 @@ export function orderStatusSms(order: Order, status: OrderStatus): string {
       return `פטשופ: הזמנה ${order.id} הגיעה. תהנו! משוב? wa.me/972558810183`;
     case 'cancelled':
       return `פטשופ: הזמנה ${order.id} בוטלה. החזר תוך 7 ימי עסקים.`;
+  }
+}
+
+/** Per-fulfillment-status SMS body for the hybrid supplier→base→customer flow. */
+export function fulfillmentStatusSms(
+  order: Order,
+  status: FulfillmentStatus
+): string {
+  switch (status) {
+    case 'pending':
+      return `פטשופ: קיבלנו את הזמנה ${order.id}. אנחנו עסק משפחתי, מטפלים בה אישית ונעדכן בכל שלב.`;
+    case 'ordered_from_supplier':
+      return `פטשופ: הזמנו עבורך את הציוד מהספק (${order.id}). מגיע אלינו לבדיקה בתל אביב, ואז אלייך.`;
+    case 'arrived_at_base':
+      return `פטשופ: הציוד שלך (${order.id}) הגיע אלינו לתל אביב לבדיקה אישית. בקרוב נארוז ונשלח.`;
+    case 'repackaged':
+      return `פטשופ: הזמנה ${order.id} עברה בדיקה ונארזה. יוצאת אלייך ביום העסקים הקרוב.`;
+    case 'shipped_to_customer': {
+      const tracking = order.trackingUrl ? ` מעקב: ${order.trackingUrl}` : '';
+      return `פטשופ: הזמנה ${order.id} יצאה אלייך! 1-3 ימי עסקים.${tracking}`;
+    }
   }
 }

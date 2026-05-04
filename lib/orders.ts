@@ -1,4 +1,10 @@
-import type { Order, OrderStatus, OrderTimelineEntry } from './types';
+import type {
+  FulfillmentStatus,
+  FulfillmentTimelineEntry,
+  Order,
+  OrderStatus,
+  OrderTimelineEntry
+} from './types';
 
 const WISHLIST_URL =
   'https://www.aliexpress.com/p/wish-manage/share.html?type=wish&wishGroupId=900000003473719&spreadId=2ED41EE421F70C6BB3CF25DEEA87D907262B0DC22F17CFAACEA24126B7CFD7A4';
@@ -39,7 +45,9 @@ export const MOCK_ORDERS: Order[] = [
     shipping: 2499,
     total: 19274,
     status: 'received',
-    timeline: [{ status: 'received', at: '2026-05-02T15:21:00Z' }]
+    timeline: [{ status: 'received', at: '2026-05-02T15:21:00Z' }],
+    fulfillmentStatus: 'pending',
+    fulfillmentTimeline: [{ status: 'pending', at: '2026-05-02T15:21:00Z' }]
   },
   {
     id: 'ord_1002',
@@ -80,7 +88,17 @@ export const MOCK_ORDERS: Order[] = [
       { status: 'shipped', at: '2026-05-03T16:30:00Z', note: 'נמסר לשליח' }
     ],
     trackingUrl: 'https://example-courier.co.il/track/AB123456IL',
-    trackingCarrier: 'דואר ישראל'
+    trackingCarrier: 'דואר ישראל',
+    fulfillmentStatus: 'shipped_to_customer',
+    fulfillmentTimeline: [
+      { status: 'pending', at: '2026-05-03T09:48:00Z' },
+      { status: 'ordered_from_supplier', at: '2026-05-03T10:05:00Z' },
+      { status: 'arrived_at_base', at: '2026-05-03T13:20:00Z' },
+      { status: 'repackaged', at: '2026-05-03T15:00:00Z', note: 'נארז במיתוג פטשופ' },
+      { status: 'shipped_to_customer', at: '2026-05-03T16:30:00Z' }
+    ],
+    supplierTrackingNumber: 'LP00428176CN',
+    finalTrackingNumber: 'AB123456IL'
   }
 ];
 
@@ -88,8 +106,15 @@ export function getOrder(id: string): Order | undefined {
   return MOCK_ORDERS.find((o) => o.id === id);
 }
 
+export function listOrdersByFulfillment(status: FulfillmentStatus): Order[] {
+  return MOCK_ORDERS.filter((o) => o.fulfillmentStatus === status);
+}
+
 export function createOrder(
-  data: Omit<Order, 'id' | 'createdAt' | 'status' | 'timeline'>
+  data: Omit<
+    Order,
+    'id' | 'createdAt' | 'status' | 'timeline' | 'fulfillmentStatus' | 'fulfillmentTimeline'
+  >
 ): Order {
   const now = new Date().toISOString();
   const order: Order = {
@@ -97,7 +122,9 @@ export function createOrder(
     id: `ord_${Date.now().toString(36)}`,
     createdAt: now,
     status: 'received',
-    timeline: [{ status: 'received', at: now }]
+    timeline: [{ status: 'received', at: now }],
+    fulfillmentStatus: 'pending',
+    fulfillmentTimeline: [{ status: 'pending', at: now }]
   };
   MOCK_ORDERS.push(order);
   return order;
@@ -117,6 +144,33 @@ export function updateOrderStatus(
   };
   order.status = status;
   order.timeline.push(entry);
+  return order;
+}
+
+export function updateFulfillmentStatus(
+  id: string,
+  status: FulfillmentStatus,
+  options?: {
+    note?: string;
+    supplierTrackingNumber?: string;
+    finalTrackingNumber?: string;
+    notes?: string;
+  }
+): Order | undefined {
+  const order = getOrder(id);
+  if (!order) return undefined;
+  const entry: FulfillmentTimelineEntry = {
+    status,
+    at: new Date().toISOString(),
+    ...(options?.note ? { note: options.note } : {})
+  };
+  order.fulfillmentStatus = status;
+  order.fulfillmentTimeline.push(entry);
+  if (options?.supplierTrackingNumber)
+    order.supplierTrackingNumber = options.supplierTrackingNumber;
+  if (options?.finalTrackingNumber)
+    order.finalTrackingNumber = options.finalTrackingNumber;
+  if (options?.notes) order.notes = options.notes;
   return order;
 }
 
