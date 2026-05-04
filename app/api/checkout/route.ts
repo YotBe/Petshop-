@@ -4,7 +4,7 @@ import { PRODUCTS } from '@/lib/products';
 import { allocateBundlePrices, getBundle } from '@/lib/bundles';
 import { createOrder } from '@/lib/orders';
 import { notifyOrderStatus } from '@/lib/notifications';
-import type { CartItem, OrderLine } from '@/lib/types';
+import type { CartItem, DeliveryMethod, OrderLine } from '@/lib/types';
 
 /**
  * In-memory dedupe of recent idempotency keys. Holds the response payload
@@ -63,11 +63,22 @@ export async function POST(req: Request) {
 
     const { items, customer } = (await req.json()) as {
       items: CartItem[];
-      customer: Record<string, string>;
+      customer: Record<string, string> & { deliveryMethod?: string };
     };
 
     if (!Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ error: 'העגלה ריקה' }, { status: 400 });
+    }
+
+    const deliveryMethod: DeliveryMethod =
+      customer.deliveryMethod === 'pickup' ? 'pickup' : 'delivery';
+
+    // Server-side guardrail: pickup requires a phone for coordination.
+    if (deliveryMethod === 'pickup' && !(customer.phone || '').trim()) {
+      return NextResponse.json(
+        { error: 'לאיסוף עצמי נדרש מספר טלפון לתיאום' },
+        { status: 400 }
+      );
     }
 
     let subtotal = 0;
@@ -120,7 +131,8 @@ export async function POST(req: Request) {
       });
     }
 
-    const shipping = subtotal > 19900 ? 0 : 2499;
+    const shipping =
+      deliveryMethod === 'pickup' ? 0 : subtotal > 19900 ? 0 : 2499;
     const amount = subtotal + shipping;
 
     const order = createOrder({
@@ -136,7 +148,8 @@ export async function POST(req: Request) {
       lines,
       subtotal,
       shipping,
-      total: amount
+      total: amount,
+      deliveryMethod
     });
 
     // Fire-and-forget notification — must not block checkout response.

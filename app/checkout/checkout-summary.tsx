@@ -3,16 +3,19 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, PackageOpen } from 'lucide-react';
+import { ChevronDown, PackageOpen, Store } from 'lucide-react';
 import { useCart, lineKey } from '@/store/cart-store';
+import { useCheckoutPrefs } from '@/store/checkout-prefs';
 import { formatILS } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 export default function CheckoutSummary() {
   const { items, subtotal } = useCart();
+  const deliveryMethod = useCheckoutPrefs((s) => s.deliveryMethod);
   const [open, setOpen] = useState(false);
   const sub = subtotal();
-  const shipping = sub > 19900 || sub === 0 ? 0 : 2499;
+  const isPickup = deliveryMethod === 'pickup';
+  const shipping = isPickup || sub > 19900 || sub === 0 ? 0 : 2499;
   const total = sub + shipping;
   const itemCount = items.reduce((n, i) => n + i.quantity, 0);
 
@@ -89,7 +92,10 @@ export default function CheckoutSummary() {
             <span className="num whitespace-nowrap">{formatILS(sub)}</span>
           </div>
           <div className="flex justify-between">
-            <span>משלוח</span>
+            <span className="inline-flex items-center gap-1.5">
+              {isPickup && <Store className="h-3.5 w-3.5 text-brand" aria-hidden />}
+              {isPickup ? 'איסוף עצמי' : 'משלוח'}
+            </span>
             <span className="num whitespace-nowrap">
               {shipping === 0 ? 'חינם' : formatILS(shipping)}
             </span>

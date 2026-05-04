@@ -6,6 +6,7 @@ import {
   PackageCheck,
   PackageOpen,
   Truck,
+  Store,
   CheckCircle2,
   Clock,
   Heart,
@@ -14,6 +15,7 @@ import {
 import { getOrder } from '@/lib/orders';
 import { Button } from '@/components/ui/button';
 import { formatILS, cn } from '@/lib/utils';
+import { PICKUP_LOCATION } from '@/lib/delivery';
 import type { FulfillmentStatus, Order } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
@@ -29,49 +31,61 @@ type Phase = {
   activeAt: FulfillmentStatus[];
 };
 
-const PHASES: Phase[] = [
-  {
-    key: 'received',
-    title: 'קיבלנו את ההזמנה',
-    blurb: 'התחלנו לטפל בהזמנה האישית שלך.',
-    icon: Inbox,
-    completedAt: [
-      'ordered_from_supplier',
-      'arrived_at_base',
-      'repackaged',
-      'shipped_to_customer'
-    ],
-    activeAt: ['pending']
-  },
-  {
-    key: 'inspect',
-    title: 'בדיקת איכות אצלנו בתל אביב',
-    blurb: 'הציוד שלך מגיע אלינו לבדיקה אישית — בלי קיצורי דרך.',
-    icon: Search,
-    completedAt: ['arrived_at_base', 'repackaged', 'shipped_to_customer'],
-    activeAt: ['ordered_from_supplier']
-  },
-  {
-    key: 'pack',
-    title: 'אריזה מהלב',
-    blurb: 'נארז יפה במיתוג פטשופ — לא סתם קופסה אנונימית.',
-    icon: PackageOpen,
-    completedAt: ['repackaged', 'shipped_to_customer'],
-    activeAt: ['arrived_at_base']
-  },
-  {
-    key: 'on_the_way',
-    title: 'בדרך אלייך',
-    blurb: 'יצא לשליח — מגיע ב-1-3 ימי עסקים.',
-    icon: Truck,
-    completedAt: ['shipped_to_customer'],
-    activeAt: ['repackaged']
-  }
-];
+function buildPhases(isPickup: boolean): Phase[] {
+  return [
+    {
+      key: 'received',
+      title: 'קיבלנו את ההזמנה',
+      blurb: 'התחלנו לטפל בהזמנה האישית שלך.',
+      icon: Inbox,
+      completedAt: [
+        'ordered_from_supplier',
+        'arrived_at_base',
+        'repackaged',
+        'shipped_to_customer'
+      ],
+      activeAt: ['pending']
+    },
+    {
+      key: 'inspect',
+      title: 'בדיקת איכות אצלנו בתל אביב',
+      blurb: 'הציוד שלך מגיע אלינו לבדיקה אישית — בלי קיצורי דרך.',
+      icon: Search,
+      completedAt: ['arrived_at_base', 'repackaged', 'shipped_to_customer'],
+      activeAt: ['ordered_from_supplier']
+    },
+    {
+      key: 'pack',
+      title: 'אריזה מהלב',
+      blurb: 'נארז יפה במיתוג פטשופ — לא סתם קופסה אנונימית.',
+      icon: PackageOpen,
+      completedAt: ['repackaged', 'shipped_to_customer'],
+      activeAt: ['arrived_at_base']
+    },
+    isPickup
+      ? {
+          key: 'on_the_way',
+          title: 'מוכן לאיסוף בתל אביב',
+          blurb:
+            'נסגור איתך מועד מדויק בוואטסאפ — קופצים אלינו, אומרים שלום, ואוספים את ההזמנה.',
+          icon: Store,
+          completedAt: ['shipped_to_customer'],
+          activeAt: ['repackaged']
+        }
+      : {
+          key: 'on_the_way',
+          title: 'בדרך אלייך',
+          blurb: 'יצא לשליח — מגיע ב-1-3 ימי עסקים.',
+          icon: Truck,
+          completedAt: ['shipped_to_customer'],
+          activeAt: ['repackaged']
+        }
+  ];
+}
 
-function findActiveIndex(fs: FulfillmentStatus): number {
-  if (fs === 'shipped_to_customer') return PHASES.length; // all done
-  return PHASES.findIndex((p) => p.activeAt.includes(fs));
+function findActiveIndex(phases: Phase[], fs: FulfillmentStatus): number {
+  if (fs === 'shipped_to_customer') return phases.length;
+  return phases.findIndex((p) => p.activeAt.includes(fs));
 }
 
 export default function OrderTrackingPage({
@@ -83,7 +97,9 @@ export default function OrderTrackingPage({
   if (!order) return notFound();
 
   const fs = order.fulfillmentStatus;
-  const activeIdx = findActiveIndex(fs);
+  const isPickup = order.deliveryMethod === 'pickup';
+  const phases = buildPhases(isPickup);
+  const activeIdx = findActiveIndex(phases, fs);
 
   return (
     <div className="container max-w-3xl py-10">
@@ -101,7 +117,7 @@ export default function OrderTrackingPage({
       </header>
 
       <ol className="mt-10 space-y-4">
-        {PHASES.map((phase, i) => {
+        {phases.map((phase, i) => {
           const isCompleted = phase.completedAt.includes(fs);
           const isActive = i === activeIdx;
           const isFuture = !isCompleted && !isActive;
@@ -163,12 +179,18 @@ export default function OrderTrackingPage({
                 >
                   {phase.blurb}
                 </p>
-                {isActive && phase.key === 'on_the_way' && order.trackingUrl && (
+                {isActive && phase.key === 'on_the_way' && !isPickup && order.trackingUrl && (
                   <Button asChild size="sm" variant="accent" className="mt-3">
                     <a href={order.trackingUrl} target="_blank" rel="noreferrer">
                       צפו במעקב המשלוח
                     </a>
                   </Button>
+                )}
+                {isActive && phase.key === 'on_the_way' && isPickup && (
+                  <div className="mt-3 rounded-md bg-white p-3 text-xs text-slate-700 ring-1 ring-brand/20">
+                    <p className="font-semibold text-ink">{PICKUP_LOCATION.address}</p>
+                    <p className="mt-0.5">{PICKUP_LOCATION.hours}</p>
+                  </div>
                 )}
               </div>
             </li>
@@ -178,12 +200,20 @@ export default function OrderTrackingPage({
         {fs === 'shipped_to_customer' && (
           <li className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-center">
             <CheckCircle2 className="mx-auto h-8 w-8 text-emerald-600" />
-            <p className="mt-2 font-semibold text-emerald-900">ההזמנה בדרך אלייך!</p>
-            {order.finalTrackingNumber && (
+            <p className="mt-2 font-semibold text-emerald-900">
+              {isPickup ? 'ההזמנה מוכנה לאיסוף!' : 'ההזמנה בדרך אלייך!'}
+            </p>
+            {isPickup ? (
               <p className="mt-1 text-sm text-emerald-800">
-                מס׳ מעקב:{' '}
-                <span className="font-mono">{order.finalTrackingNumber}</span>
+                ניצור איתך קשר בוואטסאפ לתיאום מועד.
               </p>
+            ) : (
+              order.finalTrackingNumber && (
+                <p className="mt-1 text-sm text-emerald-800">
+                  מס׳ מעקב:{' '}
+                  <span className="font-mono">{order.finalTrackingNumber}</span>
+                </p>
+              )
             )}
           </li>
         )}
