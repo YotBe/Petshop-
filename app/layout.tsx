@@ -7,6 +7,7 @@ import Footer from '@/components/layout/footer';
 import PromoBar from '@/components/layout/promo-bar';
 import WhatsAppButton from '@/components/layout/whatsapp-button';
 import CartDrawer from '@/components/cart/cart-drawer';
+import AuthSessionProvider from '@/components/auth/session-provider';
 
 const heebo = Heebo({
   subsets: ['latin', 'hebrew'],
@@ -31,19 +32,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`}>
       <body className={heebo.className}>
-        <PromoBar />
-        <Navbar />
-        <main className="min-h-[calc(100vh-200px)]">{children}</main>
-        <CartDrawer />
-        <Footer />
-        <WhatsAppButton />
-        <Toaster
-          position="top-center"
-          dir="rtl"
-          richColors
-          closeButton
-          toastOptions={{ className: 'font-sans' }}
-        />
+        <AuthSessionProvider>
+          <PromoBar />
+          <Navbar />
+          <main className="min-h-[calc(100vh-200px)]">{children}</main>
+          <CartDrawer />
+          <Footer />
+          <WhatsAppButton />
+          <Toaster
+            position="top-center"
+            dir="rtl"
+            richColors
+            closeButton
+            toastOptions={{ className: 'font-sans' }}
+          />
+        </AuthSessionProvider>
       </body>
     </html>
   );

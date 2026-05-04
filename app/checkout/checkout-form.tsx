@@ -58,41 +58,90 @@ export default function CheckoutForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      <section className="rounded-xl border border-slate-200 bg-white p-6">
+      <section className="rounded-xl border border-slate-200 bg-white p-5 md:p-6">
         <h2 className="text-lg font-semibold">פרטי קשר</h2>
         <div className="mt-4">
-          <label className="text-sm font-medium">אימייל</label>
-          <Input type="email" required value={form.email} onChange={update('email')} placeholder="name@example.co.il" />
+          <label htmlFor="checkout-email" className="text-sm font-medium">אימייל</label>
+          <Input
+            id="checkout-email"
+            type="email"
+            required
+            dir="ltr"
+            inputMode="email"
+            autoComplete="email"
+            autoCapitalize="none"
+            spellCheck={false}
+            value={form.email}
+            onChange={update('email')}
+            placeholder="name@example.co.il"
+            className="mt-1.5"
+          />
         </div>
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-6">
+      <section className="rounded-xl border border-slate-200 bg-white p-5 md:p-6">
         <h2 className="text-lg font-semibold">כתובת למשלוח</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
-            <label className="text-sm font-medium">שם מלא</label>
-            <Input required value={form.name} onChange={update('name')} />
+            <label htmlFor="checkout-name" className="text-sm font-medium">שם מלא</label>
+            <Input
+              id="checkout-name"
+              required
+              autoComplete="name"
+              value={form.name}
+              onChange={update('name')}
+              className="mt-1.5"
+            />
           </div>
           <div className="sm:col-span-2">
-            <label className="text-sm font-medium">כתובת</label>
-            <Input required value={form.address} onChange={update('address')} />
+            <label htmlFor="checkout-address" className="text-sm font-medium">כתובת</label>
+            <Input
+              id="checkout-address"
+              required
+              autoComplete="street-address"
+              value={form.address}
+              onChange={update('address')}
+              className="mt-1.5"
+            />
           </div>
           <div>
-            <label className="text-sm font-medium">עיר</label>
-            <Input required value={form.city} onChange={update('city')} />
+            <label htmlFor="checkout-city" className="text-sm font-medium">עיר</label>
+            <Input
+              id="checkout-city"
+              required
+              autoComplete="address-level2"
+              value={form.city}
+              onChange={update('city')}
+              className="mt-1.5"
+            />
           </div>
           <div>
-            <label className="text-sm font-medium">מיקוד</label>
-            <Input required value={form.postalCode} onChange={update('postalCode')} />
+            <label htmlFor="checkout-postal" className="text-sm font-medium">מיקוד</label>
+            <Input
+              id="checkout-postal"
+              required
+              inputMode="numeric"
+              autoComplete="postal-code"
+              value={form.postalCode}
+              onChange={update('postalCode')}
+              className="mt-1.5"
+            />
           </div>
           <div>
-            <label className="text-sm font-medium">מדינה</label>
-            <Input required value={form.country} onChange={update('country')} />
+            <label htmlFor="checkout-country" className="text-sm font-medium">מדינה</label>
+            <Input
+              id="checkout-country"
+              required
+              autoComplete="country-name"
+              value={form.country}
+              onChange={update('country')}
+              className="mt-1.5"
+            />
           </div>
         </div>
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-6">
+      <section className="rounded-xl border border-slate-200 bg-white p-5 md:p-6">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">תשלום</h2>
           <span className="inline-flex items-center gap-1 text-xs text-slate-500">

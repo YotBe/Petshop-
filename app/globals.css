@@ -25,3 +25,15 @@ h1, h2, h3 {
 
 /* Keep prices/numbers LTR even inside RTL paragraphs */
 .num { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+/* Mobile menu item entrance — used for staggered drawer reveal */
+@keyframes menu-item-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.menu-item-in {
+  animation: menu-item-in 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-item-in { animation: none; }
+}

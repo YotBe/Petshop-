@@ -54,7 +54,7 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <MessageCircle className="h-4 w-4 text-accent" />
-              <span>וואטסאפ: <span className="num">050-0000000</span></span>
+              <span>וואטסאפ: <span className="num">055-881-0183</span></span>
             </li>
             <li className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-accent" />

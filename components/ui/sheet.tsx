@@ -22,7 +22,7 @@ export function SheetContent({
       <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out" />
       <DialogPrimitive.Content
         className={cn(
-          'fixed z-50 flex h-full w-full max-w-md flex-col gap-0 border-slate-200 bg-white shadow-xl transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out',
+          'fixed z-50 flex h-full w-screen sm:w-full sm:max-w-md flex-col gap-0 border-slate-200 bg-white shadow-xl transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out',
           side === 'right'
             ? 'right-0 top-0 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right'
             : 'left-0 top-0 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left',
@@ -31,7 +31,10 @@ export function SheetContent({
         {...props}
       >
         {children}
-        <DialogPrimitive.Close className="absolute end-4 top-4 rounded-md p-1 hover:bg-slate-100">
+        <DialogPrimitive.Close
+          className="absolute end-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-md text-slate-600 hover:bg-slate-100 active:bg-slate-200 touch-manipulation"
+          aria-label="סגור"
+        >
           <X className="h-5 w-5" />
           <span className="sr-only">סגור</span>
         </DialogPrimitive.Close>

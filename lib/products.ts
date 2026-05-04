@@ -75,8 +75,8 @@ export const PRODUCTS: Product[] = [
     price: 1339,
     stockStatus: 'in-stock',
     images: [
-      'https://images.unsplash.com/photo-1561406636-b80293969660?w=1200',
-      'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200'
+      '/products/IMG_3786.jpeg',
+      '/products/IMG_3787.jpeg'
     ],
     category: 'interactive-toys',
     rating: 4.8,
