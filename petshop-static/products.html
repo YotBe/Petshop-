@@ -166,9 +166,12 @@
     const params = new URLSearchParams(location.search);
     let activeCategory = params.get('category') || 'all';
     let activeSort = params.get('sort') || 'default';
+    const query = (params.get('q') || '').trim().toLowerCase();
 
     // Inject into selects
     document.getElementById('sort-select').value = activeSort;
+    const searchInput = document.querySelector('.nav__search input[name="q"]');
+    if (searchInput && query) searchInput.value = params.get('q');
 
     // Category filters (sidebar)
     const allCats = [{ slug: 'all', title: 'כל הקטגוריות' }, ...CATEGORIES];
@@ -206,6 +209,12 @@
 
     function getFiltered() {
       let list = activeCategory === 'all' ? [...PRODUCTS] : PRODUCTS.filter(p => p.category === activeCategory);
+      if (query) {
+        list = list.filter(p =>
+          p.title.toLowerCase().includes(query) ||
+          (p.desc || '').toLowerCase().includes(query)
+        );
+      }
       switch (activeSort) {
         case 'rating': list.sort((a,b) => b.rating - a.rating); break;
         case 'discount': list.sort((a,b) => discountPct(b.price,b.was) - discountPct(a.price,a.was)); break;
@@ -241,7 +250,7 @@
                 <span class="product-card__current">₪<span class="num">${fmtPrice(p.price)}</span></span>
                 ${p.was ? `<span class="product-card__was">₪<span class="num">${fmtPrice(p.was)}</span></span>` : ''}
               </div>
-              <button class="btn btn--primary btn--sm btn--block" data-add-to-cart="${p.id}" style="margin-top:12px;" onclick="event.preventDefault();event.stopPropagation();">
+              <button class="btn btn--primary btn--sm btn--block" data-add-to-cart="${p.id}" style="margin-top:12px;">
                 ${ICONS.cart} הוסף לעגלה
               </button>
             </div>
@@ -249,7 +258,10 @@
       }).join('');
 
       // Update listing title
-      if (activeCategory !== 'all') {
+      if (query) {
+        document.getElementById('listing-title').textContent = `תוצאות עבור "${params.get('q')}"`;
+        document.getElementById('listing-sub').textContent = `${list.length} מוצרים תואמים`;
+      } else if (activeCategory !== 'all') {
         const cat = CATEGORIES.find(c => c.slug === activeCategory);
         if (cat) {
           document.getElementById('listing-title').textContent = cat.title;

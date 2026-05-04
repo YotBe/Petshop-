@@ -299,11 +299,18 @@
       if (dec) { Cart.setQty(dec.dataset.cartDec, Math.max(0, (Cart.items.find(x => x.id === dec.dataset.cartDec)?.qty || 0) - 1)); paintCart(); }
       if (rem) { Cart.remove(rem.dataset.cartRemove); paintCart(); }
       if (add) {
+        e.preventDefault();
         const id = add.dataset.addToCart;
         const qty = parseInt(add.dataset.qty || '1', 10);
         Cart.add(id, qty);
         const p = window.PETSHOP.getById(id);
         toast(`✓ נוסף לעגלה: ${p?.title || ''}`);
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const drawer = document.getElementById('cart-drawer');
+        if (drawer) drawer.classList.remove('is-open');
       }
     });
     Cart.on(() => { paintCartCount(); });
