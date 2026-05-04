@@ -87,7 +87,7 @@ export default function MobileMenu({
                   <Link
                     href={href}
                     onClick={close}
-                    className="group flex items-center justify-between gap-3 rounded-xl px-3 py-3 text-[15px] font-medium text-ink transition active:bg-slate-100 hover:bg-slate-50"
+                    className="group flex min-h-[48px] items-center justify-between gap-3 rounded-xl px-3 py-3.5 text-[15px] font-medium text-ink transition active:bg-slate-100 hover:bg-slate-50 touch-manipulation"
                   >
                     <span className="flex items-center gap-3">
                       <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-700 group-hover:bg-brand/10 group-hover:text-brand transition">

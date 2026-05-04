@@ -20,8 +20,42 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const pct = discountPct(product.price, product.originalPrice);
   const showSizeChart = product.category === 'harnesses-leashes';
 
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL || 'https://petshop-two-ruby.vercel.app';
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.title,
+    description: product.description,
+    image: product.images.map((src) =>
+      src.startsWith('http') ? src : `${baseUrl}${src}`
+    ),
+    sku: product.id,
+    brand: { '@type': 'Brand', name: 'פטשופ' },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: product.rating.toFixed(1),
+      reviewCount: product.reviewCount
+    },
+    offers: {
+      '@type': 'Offer',
+      url: `${baseUrl}/products/${product.id}`,
+      priceCurrency: 'ILS',
+      price: (product.price / 100).toFixed(2),
+      availability:
+        product.stockStatus === 'out-of-stock'
+          ? 'https://schema.org/OutOfStock'
+          : 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition'
+    }
+  };
+
   return (
     <div className="container py-10 pb-28 md:pb-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <div className="grid gap-10 md:grid-cols-2">
         <ProductGallery images={product.images} alt={product.title} />
 

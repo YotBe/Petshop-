@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/store/cart-store';
 import { cn } from '@/lib/utils';
+import { track } from '@/lib/analytics';
 import type { Bundle } from '@/lib/types';
 
 export default function AddBundleButton({
@@ -25,6 +26,10 @@ export default function AddBundleButton({
       className={cn('w-full', className)}
       onClick={() => {
         addBundle(bundle);
+        track('add_bundle', {
+          bundleId: bundle.id,
+          price: bundle.price
+        });
         toast.success('הערכה נוספה לעגלה!', {
           description: bundle.title
         });

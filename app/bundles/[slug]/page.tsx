@@ -44,8 +44,39 @@ export default function BundlePage({
   const savings = bundleSavings(bundle);
   const itemsTotal = items.reduce((n, it) => n + it.quantity, 0);
 
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL || 'https://petshop-two-ruby.vercel.app';
+  const bundleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: bundle.title,
+    description: bundle.description,
+    image: bundle.heroImage.startsWith('http')
+      ? bundle.heroImage
+      : `${baseUrl}${bundle.heroImage}`,
+    sku: bundle.id,
+    brand: { '@type': 'Brand', name: 'פטשופ' },
+    isRelatedTo: items.map(({ product }) => ({
+      '@type': 'Product',
+      name: product.title,
+      sku: product.id
+    })),
+    offers: {
+      '@type': 'Offer',
+      url: `${baseUrl}/bundles/${bundle.slug}`,
+      priceCurrency: 'ILS',
+      price: (bundle.price / 100).toFixed(2),
+      availability: 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition'
+    }
+  };
+
   return (
     <div className="container py-10 pb-28 md:pb-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(bundleJsonLd) }}
+      />
       <div className="grid gap-10 md:grid-cols-2">
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-50">
           <Image
