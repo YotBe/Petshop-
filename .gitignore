@@ -9,3 +9,6 @@ yarn-error.log*
 .vercel
 *.pem
 coverage
+next-env.d.ts
+*.tsbuildinfo
+package-lock.json

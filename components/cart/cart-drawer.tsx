@@ -41,7 +41,9 @@ export default function CartDrawer() {
                     >
                       {item.title}
                     </Link>
-                    <div className="mt-1 text-sm text-slate-600">{formatILS(item.price)}</div>
+                    <div className="mt-1 text-sm text-slate-600">
+                      <span className="num whitespace-nowrap">{formatILS(item.price)}</span>
+                    </div>
                     <div className="mt-auto flex items-center justify-between gap-2">
                       <div className="inline-flex items-center rounded-md border border-slate-200">
                         <button
@@ -79,7 +81,7 @@ export default function CartDrawer() {
           <div className="border-t border-slate-200 p-5">
             <div className="flex items-center justify-between text-sm">
               <span>סכום ביניים</span>
-              <span className="font-semibold">{formatILS(subtotal())}</span>
+              <span className="num whitespace-nowrap font-semibold">{formatILS(subtotal())}</span>
             </div>
             <p className="mt-1 text-xs text-slate-500">משלוח ומיסים מחושבים בעמוד התשלום.</p>
             <Button asChild size="lg" className="mt-4 w-full">

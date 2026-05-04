@@ -37,21 +37,31 @@ export default function CheckoutSummary() {
             </div>
             <div className="flex-1">
               <p className="line-clamp-2 text-sm font-medium">{i.title}</p>
-              <p className="text-xs text-slate-500">{formatILS(i.price)}</p>
+              <p className="text-xs text-slate-500">
+                <span className="num whitespace-nowrap">{formatILS(i.price)}</span>
+              </p>
             </div>
-            <div className="text-sm font-medium">{formatILS(i.price * i.quantity)}</div>
+            <div className="num whitespace-nowrap text-sm font-medium">
+              {formatILS(i.price * i.quantity)}
+            </div>
           </li>
         ))}
       </ul>
 
       <div className="mt-5 space-y-2 border-t border-slate-200 pt-4 text-sm">
-        <div className="flex justify-between"><span>סכום ביניים</span><span>{formatILS(sub)}</span></div>
+        <div className="flex justify-between">
+          <span>סכום ביניים</span>
+          <span className="num whitespace-nowrap">{formatILS(sub)}</span>
+        </div>
         <div className="flex justify-between">
           <span>משלוח</span>
-          <span>{shipping === 0 ? 'חינם' : formatILS(shipping)}</span>
+          <span className="num whitespace-nowrap">
+            {shipping === 0 ? 'חינם' : formatILS(shipping)}
+          </span>
         </div>
         <div className="flex justify-between border-t border-slate-200 pt-3 text-base font-semibold">
-          <span>סה״כ</span><span>{formatILS(total)}</span>
+          <span>סה״כ</span>
+          <span className="num whitespace-nowrap">{formatILS(total)}</span>
         </div>
       </div>
     </aside>

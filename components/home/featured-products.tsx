@@ -9,17 +9,29 @@ export default function FeaturedProducts() {
     .slice(0, 4);
 
   return (
-    <section className="container pb-16">
-      <div className="mb-6 flex items-end justify-between">
+    <section id="top-rated" className="container py-16 md:py-24">
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold">הציוד הכי מדורג</h2>
-          <p className="mt-2 text-slate-600">אהוב על הכלבים הקשוחים שלנו.</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">
+            המוצרים שחוזרים אליהם הכי הרבה
+          </p>
+          <h2 className="mt-2 text-2xl md:text-3xl font-extrabold text-ink">
+            הציוד הכי מדורג
+          </h2>
+          <p className="mt-2 text-slate-600">
+            מדורגים על ידי אלפי לקוחות — ועדיין מסתדרים בכל יום בשטח.
+          </p>
         </div>
-        <Link href="/products" className="hidden md:inline-flex items-center gap-1 text-sm font-medium text-brand hover:text-brand-dark">
-          ראה הכל <ArrowLeft className="h-4 w-4" />
+        <Link
+          href="/products"
+          className="inline-flex items-center gap-1 text-sm font-semibold text-accent hover:text-accent-dark"
+        >
+          ראו הכל <ArrowLeft className="h-4 w-4" />
         </Link>
       </div>
-      <ProductGrid products={top4} />
+      <div className="mt-8">
+        <ProductGrid products={top4} />
+      </div>
     </section>
   );
 }
