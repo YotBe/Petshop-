@@ -17,3 +17,6 @@ body {
 
 .zoom-on-hover { transition: transform 400ms ease; }
 .zoom-on-hover:hover { transform: scale(1.06); }
+
+/* Keep prices/numbers LTR even inside RTL paragraphs */
+.num { direction: ltr; unicode-bidi: isolate; display: inline-block; }

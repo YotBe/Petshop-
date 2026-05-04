@@ -5,11 +5,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatUSD(cents: number) {
-  return new Intl.NumberFormat('en-US', {
+/** prices stored as agorot (1/100 of שקל); format to ILS string */
+export function formatILS(agorot: number) {
+  return new Intl.NumberFormat('he-IL', {
     style: 'currency',
-    currency: 'USD'
-  }).format(cents / 100);
+    currency: 'ILS',
+    minimumFractionDigits: 2
+  }).format(agorot / 100);
 }
 
 export function discountPct(price: number, originalPrice?: number) {

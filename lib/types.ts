@@ -18,9 +18,9 @@ export interface Product {
   slug: string;
   title: string;
   description: string;
-  /** price in cents (USD) */
+  /** price in agorot (ILS) */
   price: number;
-  /** original price in cents, if on sale */
+  /** original price in agorot, if on sale */
   originalPrice?: number;
   stockStatus: StockStatus;
   images: string[];

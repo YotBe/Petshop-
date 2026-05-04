@@ -3,26 +3,26 @@ import type { Product, CategoryMeta } from './types';
 export const CATEGORIES: CategoryMeta[] = [
   {
     slug: 'harnesses-leashes',
-    title: 'Harnesses & Leashes',
-    description: 'No-pull, escape-proof, all-day comfort.',
+    title: 'רתמות ורצועות',
+    description: 'בלי משיכות, בלי בריחות, נוחות לכל היום.',
     icon: 'Shield'
   },
   {
     slug: 'outdoor-gear',
-    title: 'Outdoor Gear',
-    description: 'Built for the trail, the lake, and beyond.',
+    title: 'ציוד חוץ',
+    description: 'בנוי לשביל, לאגם ולכל הרפתקה.',
     icon: 'Mountain'
   },
   {
     slug: 'interactive-toys',
-    title: 'Interactive Toys',
-    description: 'Burn energy. Beat boredom.',
+    title: 'צעצועים אינטראקטיביים',
+    description: 'לשרוף אנרגיה. לחסל שעמום.',
     icon: 'Gamepad2'
   },
   {
     slug: 'training',
-    title: 'Training',
-    description: 'Tools that make every walk easier.',
+    title: 'אילוף',
+    description: 'כלים שעושים כל טיול לקל יותר.',
     icon: 'GraduationCap'
   }
 ];
@@ -31,11 +31,11 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p1',
     slug: 'tactical-heavy-duty-harness',
-    title: 'Tactical Heavy-Duty Harness',
+    title: 'רתמה טקטית מחוזקת לעבודה',
     description:
-      'Reinforced military-grade nylon harness with two metal D-rings, padded chest plate, and MOLLE attachment points. Engineered for working dogs and high-pull breeds.',
-    price: 5499,
-    originalPrice: 7999,
+      'רתמה מנילון בדרגה צבאית עם שתי טבעות D ממתכת, צלחת חזה מרופדת ונקודות חיבור MOLLE. מתוכננת לכלבי עבודה ולגזעים בעלי כוח משיכה גבוה.',
+    price: 19999,
+    originalPrice: 27999,
     stockStatus: 'in-stock',
     images: [
       'https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=1200',
@@ -46,9 +46,9 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 1284,
     spec: {
-      material: '1000D military-grade nylon, steel D-rings',
+      material: 'נילון 1000D בדרגה צבאית, טבעות D מפלדה',
       sizes: ['M', 'L', 'XL'],
-      weightRange: '40 – 110 lb',
+      weightRange: '18 – 50 ק״ג',
       weatherproof: true
     },
     aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000001.html',
@@ -57,11 +57,11 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p2',
     slug: 'waterproof-led-collar',
-    title: 'Waterproof LED Safety Collar',
+    title: 'קולר LED בטיחות עמיד למים',
     description:
-      'USB-rechargeable LED collar with 3 lighting modes, 100% waterproof construction, and 12-hour battery life. Visible up to 1,000 ft for night walks and trail runs.',
-    price: 2499,
-    originalPrice: 3499,
+      'קולר LED נטען ב-USB עם 3 מצבי תאורה, עמידות מלאה למים ועד 12 שעות סוללה. נראה ממרחק של עד 300 מטר לטיולי לילה ולריצות שטח.',
+    price: 8999,
+    originalPrice: 12999,
     stockStatus: 'in-stock',
     images: [
       'https://images.unsplash.com/photo-1568572933382-74d440642117?w=1200',
@@ -71,9 +71,9 @@ export const PRODUCTS: Product[] = [
     rating: 4.7,
     reviewCount: 942,
     spec: {
-      material: 'Silicone over reinforced nylon webbing',
+      material: 'סיליקון על גבי רצועת ניילון מחוזקת',
       sizes: ['S', 'M', 'L'],
-      weightRange: '15 – 90 lb',
+      weightRange: '7 – 40 ק״ג',
       weatherproof: true
     },
     aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000002.html',
@@ -82,10 +82,10 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p3',
     slug: 'long-range-fetching-toy',
-    title: 'Long-Range Fetching Launcher',
+    title: 'משגר כדור לטווח ארוך',
     description:
-      'Spring-loaded launcher hurls our floating tennis-style ball up to 75 ft with one hand. Perfect for high-drive retrievers and beach days.',
-    price: 1899,
+      'משגר עם קפיץ שזורק כדור טניס צף עד 23 מטרים ביד אחת. מושלם לכלבים אוהבי אחזור ולימים על שפת הים.',
+    price: 6999,
     stockStatus: 'in-stock',
     images: [
       'https://images.unsplash.com/photo-1561406636-b80293969660?w=1200',
@@ -95,9 +95,9 @@ export const PRODUCTS: Product[] = [
     rating: 4.6,
     reviewCount: 612,
     spec: {
-      material: 'Glass-filled nylon launcher, natural rubber ball',
-      sizes: ['Standard'],
-      weightRange: 'All sizes',
+      material: 'משגר מניילון משוריין, כדור גומי טבעי',
+      sizes: ['סטנדרטי'],
+      weightRange: 'לכל הגדלים',
       weatherproof: true
     },
     aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000003.html',
@@ -106,11 +106,11 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p4',
     slug: 'portable-dog-water-bottle',
-    title: 'Portable Trail Water Bottle',
+    title: 'בקבוק מים נייד לשטח',
     description:
-      'Leak-proof 19 oz bottle with one-handed flip-trough lid. Food-grade silicone, BPA-free, fits any backpack side-pocket.',
-    price: 1599,
-    originalPrice: 2199,
+      'בקבוק 560 מ״ל אטום לדליפות עם מכסה זרבובית הפיכה לפעולה ביד אחת. סיליקון בדרגת מזון, ללא BPA, מתאים לכל תיק נשיאה.',
+    price: 5999,
+    originalPrice: 7999,
     stockStatus: 'in-stock',
     images: [
       'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200',
@@ -120,9 +120,9 @@ export const PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 2104,
     spec: {
-      material: 'BPA-free Tritan + food-grade silicone',
-      sizes: ['19 oz', '27 oz'],
-      weightRange: 'All sizes',
+      material: 'Tritan ללא BPA + סיליקון בדרגת מזון',
+      sizes: ['560 מ״ל', '800 מ״ל'],
+      weightRange: 'לכל הגדלים',
       weatherproof: true
     },
     aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000004.html',
@@ -131,11 +131,11 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p5',
     slug: 'cooling-vest',
-    title: 'Evaporative Cooling Vest',
+    title: 'אפוד קירור התאדותי',
     description:
-      'Three-layer evaporative fabric stays cool for up to 6 hours. Just soak, wring, and zip — protects active dogs in summer heat.',
-    price: 3299,
-    originalPrice: 4499,
+      'בד קירור תלת-שכבתי שנשאר קר עד 6 שעות. פשוט להרטיב, לסחוט ולסגור עם רוכסן — מגן על כלבים פעילים בחום הקיץ.',
+    price: 11999,
+    originalPrice: 16999,
     stockStatus: 'low-stock',
     images: [
       'https://images.unsplash.com/photo-1530041686259-53ddc28d3713?w=1200',
@@ -145,9 +145,9 @@ export const PRODUCTS: Product[] = [
     rating: 4.5,
     reviewCount: 388,
     spec: {
-      material: 'PVA evaporative microfiber, ripstop shell',
+      material: 'מיקרופייבר PVA מתאדה, מעטפת ריפסטופ',
       sizes: ['M', 'L', 'XL'],
-      weightRange: '30 – 100 lb',
+      weightRange: '14 – 45 ק״ג',
       weatherproof: false
     },
     aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000005.html',
@@ -156,10 +156,10 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p6',
     slug: 'reinforced-hiking-leash',
-    title: 'Reinforced Bungee Hiking Leash',
+    title: 'רצועת טיולים מחוזקת עם בנג׳י',
     description:
-      '6-ft climbing-grade rope leash with shock-absorbing bungee, traffic handle, and locking carabiner. Tested to 3,000 lbs of break strength.',
-    price: 3499,
+      'רצועה באורך 1.8 מטר מחבל טיפוס איכותי, עם בנג׳י סופג זעזועים, ידית תנועה ואבזם נעילה. נבדקה לעמידות של 1,360 ק״ג.',
+    price: 12999,
     stockStatus: 'in-stock',
     images: [
       'https://images.unsplash.com/photo-1601758003122-53c40e686a19?w=1200',
@@ -169,9 +169,9 @@ export const PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 1651,
     spec: {
-      material: '10mm climbing rope, anodized aluminum carabiner',
-      sizes: ['6 ft'],
-      weightRange: '20 – 150 lb',
+      material: 'חבל טיפוס 10 מ״מ, אבזם אלומיניום מאונדז',
+      sizes: ['1.8 מטר'],
+      weightRange: '9 – 68 ק״ג',
       weatherproof: true
     },
     aliexpressUrl: 'https://www.aliexpress.com/item/1005006000000006.html',
