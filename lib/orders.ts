@@ -29,7 +29,7 @@ export const MOCK_ORDERS: Order[] = [
         title: 'מיטת כלב מורמת — לכל עונה',
         quantity: 1,
         price: 11977,
-        aliexpressUrl: WISHLIST_URL
+        aliexpressUrl: 'https://a.aliexpress.com/_c40psG39'
       }
     ],
     subtotal: 16775,
@@ -61,7 +61,7 @@ export const MOCK_ORDERS: Order[] = [
         title: 'סט צעצועי EVA לכלב (4 חלקים)',
         quantity: 1,
         price: 1427,
-        aliexpressUrl: WISHLIST_URL
+        aliexpressUrl: 'https://a.aliexpress.com/_c4TyCy8f'
       }
     ],
     subtotal: 7531,

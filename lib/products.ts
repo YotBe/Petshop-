@@ -140,7 +140,7 @@ export const PRODUCTS: Product[] = [
       weightRange: 'לכל הגדלים',
       weatherproof: true
     },
-    aliexpressUrl: WISHLIST_URL,
+    aliexpressUrl: 'https://a.aliexpress.com/_c4TyCy8f',
     pairsWith: ['p2', 'p5']
   },
   {
@@ -164,7 +164,7 @@ export const PRODUCTS: Product[] = [
       weightRange: 'לכל הגדלים',
       weatherproof: true
     },
-    aliexpressUrl: WISHLIST_URL,
+    aliexpressUrl: 'https://a.aliexpress.com/_c4F3OacB',
     pairsWith: ['p4', 'p2']
   },
   {
@@ -189,7 +189,7 @@ export const PRODUCTS: Product[] = [
       weightRange: 'לכל הגדלים',
       weatherproof: false
     },
-    aliexpressUrl: WISHLIST_URL,
+    aliexpressUrl: 'https://a.aliexpress.com/_c2urGXj1',
     pairsWith: ['p7']
   },
   {
@@ -238,7 +238,7 @@ export const PRODUCTS: Product[] = [
       weightRange: 'לכלבים קטנים ובינוניים',
       weatherproof: true
     },
-    aliexpressUrl: WISHLIST_URL,
+    aliexpressUrl: 'https://a.aliexpress.com/_c3cxOPkb',
     pairsWith: ['p2', 'p5']
   },
   {
@@ -263,7 +263,7 @@ export const PRODUCTS: Product[] = [
       weightRange: '15 – 60 ק״ג',
       weatherproof: true
     },
-    aliexpressUrl: WISHLIST_URL,
+    aliexpressUrl: 'https://a.aliexpress.com/_c40psG39',
     pairsWith: ['p10', 'p3']
   },
   {
@@ -313,7 +313,7 @@ export const PRODUCTS: Product[] = [
       weightRange: 'לכל הגדלים',
       weatherproof: true
     },
-    aliexpressUrl: WISHLIST_URL,
+    aliexpressUrl: 'https://a.aliexpress.com/_c3KrqlVz',
     pairsWith: ['p2', 'p4']
   }
 ];
