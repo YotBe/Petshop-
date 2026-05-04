@@ -32,6 +32,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`}>
       <body className={heebo.className}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'פטשופ',
+              url: process.env.NEXT_PUBLIC_APP_URL || 'https://petshop-two-ruby.vercel.app',
+              logo: `${process.env.NEXT_PUBLIC_APP_URL || 'https://petshop-two-ruby.vercel.app'}/icon.png`,
+              email: 'hello@petshop.co.il',
+              contactPoint: [
+                {
+                  '@type': 'ContactPoint',
+                  telephone: '+972-55-881-0183',
+                  contactType: 'customer support',
+                  areaServed: 'IL',
+                  availableLanguage: ['Hebrew', 'English']
+                }
+              ],
+              sameAs: ['https://instagram.com', 'https://facebook.com']
+            })
+          }}
+        />
         <AuthSessionProvider>
           <PromoBar />
           <Navbar />

@@ -65,14 +65,14 @@ export default function Footer() {
             <a
               href="https://instagram.com"
               aria-label="Instagram"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 active:bg-white/30 touch-manipulation"
             >
               <Instagram className="h-4 w-4" />
             </a>
             <a
               href="https://facebook.com"
               aria-label="Facebook"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 active:bg-white/30 touch-manipulation"
             >
               <Facebook className="h-4 w-4" />
             </a>

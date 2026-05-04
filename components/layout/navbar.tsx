@@ -115,7 +115,7 @@ export default function Navbar() {
         <div className="ms-auto md:ms-0 flex items-center gap-2">
           <CartButton />
           <button
-            className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-md text-ink hover:bg-slate-100 active:bg-slate-200 touch-manipulation"
+            className="md:hidden inline-flex h-12 w-12 items-center justify-center rounded-md text-ink hover:bg-slate-100 active:bg-slate-200 touch-manipulation"
             onClick={() => setMobileOpen(true)}
             aria-label="פתח תפריט"
             aria-expanded={mobileOpen}

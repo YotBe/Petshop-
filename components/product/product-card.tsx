@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { discountPct, formatILS } from '@/lib/utils';
 import { useCart } from '@/store/cart-store';
+import { track } from '@/lib/analytics';
 import type { Product } from '@/lib/types';
 
 function getSocialLabel(product: Product): { text: string; variant: 'bestseller' | 'brand' } | null {
@@ -24,6 +25,11 @@ export default function ProductCard({ product }: { product: Product }) {
 
   function handleAdd() {
     add(product, 1);
+    track('add_to_cart', {
+      productId: product.id,
+      price: product.price,
+      onSale
+    });
     toast.success('המוצר נוסף לעגלה בהצלחה!', {
       description: product.title
     });

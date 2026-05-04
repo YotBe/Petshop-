@@ -13,7 +13,7 @@ export default function CartButton() {
   return (
     <button
       onClick={open}
-      className="relative inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-slate-100"
+      className="relative inline-flex h-12 w-12 items-center justify-center rounded-md text-ink hover:bg-slate-100 active:bg-slate-200 touch-manipulation"
       aria-label="פתח עגלה"
     >
       <ShoppingBag className="h-5 w-5" />
