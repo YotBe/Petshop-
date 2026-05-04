@@ -53,10 +53,7 @@ export const PRODUCTS: Product[] = [
     price: 620,
     originalPrice: 636,
     stockStatus: 'in-stock',
-    images: [
-      'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=1200',
-      'https://images.unsplash.com/photo-1568572933382-74d440642117?w=1200'
-    ],
+    images: ['/products/IMG_3790.jpeg'],
     category: 'harnesses-leashes',
     rating: 4.8,
     reviewCount: 5000,
@@ -102,10 +99,7 @@ export const PRODUCTS: Product[] = [
     price: 4798,
     originalPrice: 15305,
     stockStatus: 'in-stock',
-    images: [
-      'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200',
-      'https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=1200'
-    ],
+    images: ['/products/IMG_3775.jpeg'],
     category: 'beds-furniture',
     rating: 4.5,
     reviewCount: 1000,
@@ -127,10 +121,7 @@ export const PRODUCTS: Product[] = [
     price: 1427,
     originalPrice: 3375,
     stockStatus: 'in-stock',
-    images: [
-      'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200',
-      'https://images.unsplash.com/photo-1561406636-b80293969660?w=1200'
-    ],
+    images: ['/products/IMG_3786.jpeg'],
     category: 'interactive-toys',
     rating: 4.7,
     reviewCount: 850,
@@ -152,9 +143,7 @@ export const PRODUCTS: Product[] = [
     price: 3627,
     originalPrice: 7716,
     stockStatus: 'in-stock',
-    images: [
-      'https://images.unsplash.com/photo-1561406636-b80293969660?w=1200'
-    ],
+    images: ['/products/IMG_3787.jpeg'],
     category: 'interactive-toys',
     rating: 4.6,
     reviewCount: 370,
@@ -176,10 +165,7 @@ export const PRODUCTS: Product[] = [
     price: 6227,
     originalPrice: 18316,
     stockStatus: 'in-stock',
-    images: [
-      'https://images.unsplash.com/photo-1530041686259-53ddc28d3713?w=1200',
-      'https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=1200'
-    ],
+    images: ['/products/IMG_3788.jpeg'],
     category: 'feeding',
     rating: 4.6,
     reviewCount: 703,
@@ -201,10 +187,7 @@ export const PRODUCTS: Product[] = [
     price: 3052,
     originalPrice: 6359,
     stockStatus: 'in-stock',
-    images: [
-      'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200',
-      'https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?w=1200'
-    ],
+    images: ['/products/IMG_3789.jpeg'],
     category: 'feeding',
     rating: 4.9,
     reviewCount: 2104,
@@ -226,9 +209,7 @@ export const PRODUCTS: Product[] = [
     price: 3069,
     originalPrice: 6394,
     stockStatus: 'in-stock',
-    images: [
-      'https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=1200'
-    ],
+    images: ['/products/IMG_3781.jpeg'],
     category: 'interactive-toys',
     rating: 4.7,
     reviewCount: 600,
@@ -250,10 +231,7 @@ export const PRODUCTS: Product[] = [
     price: 11977,
     originalPrice: 27159,
     stockStatus: 'in-stock',
-    images: [
-      'https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=1200',
-      'https://images.unsplash.com/photo-1530041686259-53ddc28d3713?w=1200'
-    ],
+    images: ['/products/IMG_3784.jpeg'],
     category: 'beds-furniture',
     rating: 4.6,
     reviewCount: 320,
@@ -300,10 +278,7 @@ export const PRODUCTS: Product[] = [
     price: 1456,
     originalPrice: 3033,
     stockStatus: 'in-stock',
-    images: [
-      'https://images.unsplash.com/photo-1507146426996-ef05306b995a?w=1200',
-      'https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=1200'
-    ],
+    images: ['/products/IMG_3785.jpeg'],
     category: 'training',
     rating: 4.5,
     reviewCount: 124,
