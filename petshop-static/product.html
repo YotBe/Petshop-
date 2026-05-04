@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>פטשופ — מוצר</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .pdp-breadcrumb {
+      padding: 16px 0;
+      font-size: 13px;
+      color: var(--slate-500);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .pdp-breadcrumb a { color: var(--slate-500); text-decoration: underline; text-underline-offset: 2px; }
+    .pdp-breadcrumb a:hover { color: var(--ink); }
+
+    .pdp-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 80px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .pdp-layout { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* Gallery */
+    .pdp-gallery {}
+    .pdp-gallery__main {
+      border: 2px solid var(--ink);
+      box-shadow: var(--shadow-ink);
+      overflow: hidden;
+      aspect-ratio: 1;
+    }
+    .pdp-gallery__main img { width: 100%; height: 100%; object-fit: cover; }
+    .pdp-gallery__thumbs {
+      display: flex; gap: 8px; margin-top: 12px;
+    }
+    .pdp-gallery__thumb {
+      width: 72px; height: 72px; border: 2px solid transparent;
+      cursor: pointer; overflow: hidden; flex-shrink: 0;
+      transition: border-color .15s;
+    }
+    .pdp-gallery__thumb.is-active { border-color: var(--ink); box-shadow: var(--shadow-ink-sm); }
+    .pdp-gallery__thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Info panel */
+    .pdp-info {}
+    .pdp-info__tag {
+      display: inline-block; font-size: 11px; font-weight: 800;
+      letter-spacing: .08em; text-transform: uppercase;
+      background: var(--orange); color: #fff;
+      padding: 4px 12px; margin-bottom: 12px;
+    }
+    .pdp-info__title { font-size: clamp(24px, 3vw, 36px); line-height: 1.15; margin-bottom: 16px; }
+    .pdp-info__meta { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+    .pdp-info__reviews-count { font-size: 13px; color: var(--slate-500); }
+    .pdp-info__stock { font-size: 12px; font-weight: 700; padding: 4px 10px; border: 2px solid; }
+    .pdp-info__stock--in { border-color: #16a34a; color: #16a34a; background: #f0fdf4; }
+    .pdp-info__stock--low { border-color: var(--gold); color: #92400e; background: #fffbeb; }
+
+    .pdp-info__pricing { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 24px; }
+    .pdp-info__price { font-size: 36px; font-weight: 900; font-family: "Fraunces", serif; }
+    .pdp-info__was { font-size: 18px; color: var(--slate-400); text-decoration: line-through; }
+    .pdp-info__saving {
+      font-size: 12px; font-weight: 800; background: var(--orange); color: #fff;
+      padding: 3px 10px; margin-bottom: 6px;
+    }
+
+    .pdp-info__desc { font-size: 15px; line-height: 1.7; color: var(--slate-700); margin-bottom: 28px; }
+
+    .pdp-add-row {
+      display: flex; gap: 12px; align-items: center; margin-bottom: 20px;
+    }
+    .pdp-qty {
+      display: flex; align-items: center; border: 2px solid var(--ink);
+      flex-shrink: 0;
+    }
+    .pdp-qty__btn {
+      width: 40px; height: 48px; display: flex; align-items: center; justify-content: center;
+      background: transparent; border: 0; cursor: pointer; transition: background .15s;
+    }
+    .pdp-qty__btn:hover { background: var(--cream); }
+    .pdp-qty__val { width: 44px; text-align: center; font-weight: 700; font-size: 16px; }
+
+    .pdp-trust {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 16px; background: var(--cream); border: 2px solid var(--ink);
+      margin-bottom: 28px;
+    }
+    .pdp-trust__row { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
+    .pdp-trust__row svg { color: var(--orange); flex-shrink: 0; }
+
+    /* Specs */
+    .pdp-specs {
+      border-top: 2px solid var(--ink);
+      padding-top: 20px; margin-top: 20px;
+    }
+    .pdp-specs__title { font-size: 14px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
+    .pdp-spec-row { display: flex; gap: 12px; font-size: 13px; padding: 8px 0; border-bottom: 1px solid var(--slate-200); }
+    .pdp-spec-row__label { width: 120px; flex-shrink: 0; color: var(--slate-500); font-weight: 600; }
+    .pdp-spec-row__val { flex: 1; }
+
+    /* Reviews section */
+    .pdp-reviews { padding: 48px 0 80px; border-top: 2px solid var(--ink); }
+    .pdp-reviews__header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 12px; }
+    .pdp-reviews__title { font-size: 28px; }
+    .pdp-reviews__summary {
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px; background: var(--sage); border: 2px solid var(--ink);
+      margin-bottom: 28px;
+    }
+    .pdp-reviews__score { font-size: 56px; font-weight: 900; font-family: "Fraunces", serif; line-height: 1; }
+    .pdp-reviews__score-meta { display: flex; flex-direction: column; gap: 4px; }
+    .pdp-review-list { display: flex; flex-direction: column; gap: 20px; }
+    .pdp-review {
+      padding: 20px; border: 2px solid var(--ink);
+    }
+    .pdp-review:nth-child(odd) { background: var(--cream); }
+    .pdp-review__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .pdp-review__author { font-weight: 700; font-size: 15px; }
+    .pdp-review__verified { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #16a34a; font-weight: 700; }
+    .pdp-review__date { font-size: 12px; color: var(--slate-500); margin-top: 2px; }
+    .pdp-review__body { font-size: 14px; line-height: 1.7; }
+
+    /* Related */
+    .pdp-related { padding: 48px 0 80px; }
+    .pdp-related__title { font-size: 28px; margin-bottom: 28px; }
+    .pdp-related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 860px) { .pdp-related__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .pdp-related__grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="pdp-root">
+    <div style="padding:80px 0;text-align:center;color:var(--slate-500);">טוען מוצר…</div>
+  </div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+  <script>PETSHOP_LAYOUT.mountLayout({ activePath: 'product.html' });</script>
+  <script>
+    const { getById, getCategoryProducts, getRelated, fmtPrice, discountPct, PRODUCT_REVIEWS, CATEGORIES } = window.PETSHOP;
+    const ICONS = window.PETSHOP_ICONS;
+    const stars = window.PETSHOP_STARS;
+
+    const params = new URLSearchParams(location.search);
+    const productId = params.get('id') || 'p1';
+    const p = getById(productId);
+
+    if (!p) {
+      document.getElementById('pdp-root').innerHTML = '<div style="padding:80px 0;text-align:center;"><h2>מוצר לא נמצא</h2><a href="products.html" class="btn btn--primary" style="margin-top:16px;">חזרה לקטלוג</a></div>';
+    } else {
+      document.title = `פטשופ — ${p.title}`;
+      let qty = 1;
+      const disc = discountPct(p.price, p.was);
+      const reviews = PRODUCT_REVIEWS[p.id] || [];
+      const catName = (CATEGORIES.find(c => c.slug === p.category) || {}).title || '';
+
+      function renderMain() {
+        const allImages = p.images && p.images.length > 1 ? p.images : [p.img];
+        let activeImg = 0;
+        const stockClass = p.stock === 'low-stock' ? 'pdp-info__stock--low' : 'pdp-info__stock--in';
+        const stockLabel = p.stock === 'low-stock' ? 'נשארו מעט' : 'במלאי';
+
+        document.getElementById('pdp-root').innerHTML = `
+          <div class="pdp-breadcrumb">
+            <a href="index.html">בית</a> /
+            <a href="products.html">מוצרים</a> /
+            ${catName ? `<a href="products.html?category=${p.category}">${catName}</a> / ` : ''}
+            <span style="color:var(--ink)">${p.title}</span>
+          </div>
+
+          <div class="pdp-layout">
+            <!-- Gallery -->
+            <div class="pdp-gallery">
+              <div class="pdp-gallery__main">
+                <img id="gallery-main-img" src="${p.img}" alt="${p.title}" />
+              </div>
+              ${allImages.length > 1 ? `
+              <div class="pdp-gallery__thumbs">
+                ${allImages.map((img,i) => `
+                  <button class="pdp-gallery__thumb ${i===0 ? 'is-active' : ''}" data-thumb="${i}">
+                    <img src="${img}" alt="" />
+                  </button>`).join('')}
+              </div>` : ''}
+            </div>
+
+            <!-- Info -->
+            <div class="pdp-info">
+              ${p.tag ? `<span class="pdp-info__tag">${p.tag}</span>` : ''}
+              <h1 class="pdp-info__title">${p.title}</h1>
+              <div class="pdp-info__meta">
+                ${stars(p.rating)}
+                <span class="pdp-info__reviews-count num">${p.reviews.toLocaleString('he-IL')} ביקורות</span>
+                <span class="pdp-info__stock ${stockClass}">${stockLabel}</span>
+              </div>
+              <div class="pdp-info__pricing">
+                <span class="pdp-info__price">₪<span class="num">${fmtPrice(p.price)}</span></span>
+                ${p.was ? `<span class="pdp-info__was">₪<span class="num">${fmtPrice(p.was)}</span></span>` : ''}
+                ${disc ? `<span class="pdp-info__saving">חיסכון ${disc}%</span>` : ''}
+              </div>
+              <p class="pdp-info__desc">${p.desc}</p>
+
+              <div class="pdp-trust">
+                <div class="pdp-trust__row">${ICONS.truck} משלוח חינם על הזמנה זו (מעל ₪199)</div>
+                <div class="pdp-trust__row">${ICONS.shield} אחריות 30 יום — החזר מלא ללא שאלות</div>
+                <div class="pdp-trust__row">${ICONS.rotate} החלפה קלה — שילוח חזרה חינם</div>
+              </div>
+
+              <div class="pdp-add-row">
+                <div class="pdp-qty">
+                  <button class="pdp-qty__btn" id="qty-dec">${ICONS.minus}</button>
+                  <span class="pdp-qty__val num" id="qty-val">1</span>
+                  <button class="pdp-qty__btn" id="qty-inc">${ICONS.plus}</button>
+                </div>
+                <button class="btn btn--primary btn--lg" style="flex:1;" id="add-btn">
+                  ${ICONS.cart} הוסף לעגלה
+                </button>
+              </div>
+
+              ${p.spec ? `
+              <div class="pdp-specs">
+                <div class="pdp-specs__title">מפרט</div>
+                ${p.spec.material ? `<div class="pdp-spec-row"><span class="pdp-spec-row__label">חומר</span><span class="pdp-spec-row__val">${p.spec.material}</span></div>` : ''}
+                ${p.spec.sizes ? `<div class="pdp-spec-row"><span class="pdp-spec-row__label">מידות</span><span class="pdp-spec-row__val">${p.spec.sizes.join(' · ')}</span></div>` : ''}
+                ${p.spec.weight ? `<div class="pdp-spec-row"><span class="pdp-spec-row__label">מתאים ל</span><span class="pdp-spec-row__val">${p.spec.weight}</span></div>` : ''}
+                <div class="pdp-spec-row"><span class="pdp-spec-row__label">שימוש חוץ</span><span class="pdp-spec-row__val">${p.spec.weather ? 'כן — עמיד מים' : 'שימוש פנים'}</span></div>
+              </div>` : ''}
+            </div>
+          </div>
+
+          <!-- Reviews -->
+          <div class="pdp-reviews">
+            <div class="pdp-reviews__header">
+              <h2 class="pdp-reviews__title">ביקורות</h2>
+            </div>
+            ${reviews.length ? `
+            <div class="pdp-reviews__summary">
+              <span class="pdp-reviews__score num">${p.rating}</span>
+              <div class="pdp-reviews__score-meta">
+                ${stars(p.rating)}
+                <span style="font-size:13px;color:var(--slate-600);">${p.reviews.toLocaleString('he-IL')} ביקורות</span>
+              </div>
+            </div>
+            <div class="pdp-review-list">
+              ${reviews.map(r => `
+                <div class="pdp-review">
+                  <div class="pdp-review__header">
+                    <div>
+                      <div class="pdp-review__author">${r.author}
+                        ${r.verified ? `<span class="pdp-review__verified">${ICONS.badgeCheck} רכישה מאומתת</span>` : ''}
+                      </div>
+                      <div class="pdp-review__date num">${r.date}</div>
+                    </div>
+                    ${stars(r.rating)}
+                  </div>
+                  <p class="pdp-review__body">${r.body}</p>
+                </div>`).join('')}
+            </div>` : `<p style="color:var(--slate-500);">אין ביקורות עדיין למוצר זה.</p>`}
+          </div>
+
+          <!-- Related -->
+          <div class="pdp-related">
+            <h2 class="pdp-related__title">מוצרים שמשתלבים</h2>
+            <div class="pdp-related__grid" id="related-grid"></div>
+          </div>
+        `;
+
+        // Gallery thumb clicks
+        document.querySelectorAll('[data-thumb]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            activeImg = parseInt(btn.dataset.thumb, 10);
+            document.getElementById('gallery-main-img').src = allImages[activeImg];
+            document.querySelectorAll('[data-thumb]').forEach(b => b.classList.toggle('is-active', b === btn));
+          });
+        });
+
+        // Qty
+        document.getElementById('qty-inc').addEventListener('click', () => { qty++; document.getElementById('qty-val').textContent = qty; });
+        document.getElementById('qty-dec').addEventListener('click', () => { if (qty > 1) qty--; document.getElementById('qty-val').textContent = qty; });
+
+        // Add to cart
+        document.getElementById('add-btn').addEventListener('click', () => {
+          window.PETSHOP_CART.add(p.id, qty);
+          window.PETSHOP_TOAST(`✓ נוסף לעגלה: ${p.title}`);
+        });
+
+        // Related products
+        const related = getRelated(p);
+        document.getElementById('related-grid').innerHTML = related.slice(0,3).map(rp => {
+          const rd = discountPct(rp.price, rp.was);
+          return `
+            <a href="product.html?id=${rp.id}" class="product-card">
+              <div class="product-card__image">
+                <img src="${rp.img}" alt="${rp.title}" loading="lazy" />
+                ${rp.tag ? `<span class="product-card__tag">${rp.tag}</span>` : ''}
+                ${rd ? `<span class="product-card__discount">−${rd}%</span>` : ''}
+              </div>
+              <div class="product-card__body">
+                <div class="product-card__meta">
+                  ${stars(rp.rating)}
+                  <span class="product-card__reviews num">(${rp.reviews.toLocaleString('he-IL')})</span>
+                </div>
+                <h3 class="product-card__title">${rp.title}</h3>
+                <div class="product-card__price">
+                  <span class="product-card__current">₪<span class="num">${fmtPrice(rp.price)}</span></span>
+                  ${rp.was ? `<span class="product-card__was">₪<span class="num">${fmtPrice(rp.was)}</span></span>` : ''}
+                </div>
+                <button class="btn btn--primary btn--sm btn--block" data-add-to-cart="${rp.id}" style="margin-top:12px;">
+                  ${ICONS.cart} הוסף לעגלה
+                </button>
+              </div>
+            </a>`;
+        }).join('');
+      }
+
+      renderMain();
+    }
+  </script>
+</body>
+</html>

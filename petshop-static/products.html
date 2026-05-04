@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>פטשופ — כל המוצרים</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .listing-hero {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 48px 0 40px;
+      border-bottom: 2px solid var(--ink);
+    }
+    .listing-hero__title { font-size: clamp(32px,4vw,52px); }
+    .listing-hero__sub { font-size: 15px; opacity: .65; margin-top: 8px; }
+
+    .listing-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 32px;
+      padding: 40px 0 80px;
+    }
+    @media (max-width: 860px) {
+      .listing-layout { grid-template-columns: 1fr; }
+      .listing-sidebar { display: none; }
+      .listing-mobile-filters { display: flex !important; }
+    }
+
+    /* Sidebar */
+    .listing-sidebar {}
+    .sidebar-section { margin-bottom: 28px; }
+    .sidebar-section__title {
+      font-size: 11px; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--slate-500);
+      margin-bottom: 12px;
+    }
+    .sidebar-filter-list { display: flex; flex-direction: column; gap: 6px; }
+    .sidebar-filter-btn {
+      font-size: 14px; font-weight: 500;
+      padding: 8px 14px;
+      border: 2px solid transparent;
+      text-align: right;
+      border-radius: 0;
+      background: transparent;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; transition: all .15s;
+    }
+    .sidebar-filter-btn:hover { background: var(--cream); border-color: var(--ink); }
+    .sidebar-filter-btn.is-active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .sidebar-filter-btn .count { font-size: 11px; opacity: .55; font-weight: 500; }
+
+    /* Mobile filter bar */
+    .listing-mobile-filters {
+      display: none;
+      gap: 8px; overflow-x: auto; padding: 12px 16px;
+      background: var(--cream); border-bottom: 2px solid var(--ink);
+      scrollbar-width: none;
+    }
+    .listing-mobile-filters::-webkit-scrollbar { display: none; }
+    .mobile-filter-chip {
+      flex-shrink: 0; font-size: 12px; font-weight: 700;
+      padding: 7px 16px; border: 2px solid var(--ink);
+      background: var(--paper); cursor: pointer; border-radius: 999px;
+      white-space: nowrap; transition: all .15s;
+    }
+    .mobile-filter-chip.is-active { background: var(--ink); color: var(--paper); }
+
+    /* Sort bar */
+    .sort-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 24px; flex-wrap: wrap;
+    }
+    .sort-bar__count { font-size: 14px; color: var(--slate-600); }
+    .sort-bar__right { display: flex; align-items: center; gap: 8px; }
+    .sort-select {
+      font: inherit; font-size: 13px; font-weight: 600;
+      padding: 8px 14px; border: 2px solid var(--ink);
+      background: var(--paper); cursor: pointer;
+      -webkit-appearance: none; appearance: none;
+      padding-left: 32px;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230F3B2E' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: left 10px center;
+      background-size: 10px;
+    }
+
+    /* Products grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 1024px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .products-grid { grid-template-columns: 1fr; } }
+
+    /* Empty state */
+    .products-empty {
+      grid-column: 1/-1;
+      padding: 80px 0;
+      text-align: center;
+      color: var(--slate-500);
+    }
+    .products-empty h3 { font-size: 22px; margin-bottom: 8px; color: var(--ink); }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile filters -->
+  <div class="listing-mobile-filters" id="mobile-filters"></div>
+
+  <!-- Listing hero -->
+  <div class="listing-hero">
+    <div class="container">
+      <h1 class="listing-hero__title" id="listing-title">כל המוצרים</h1>
+      <p class="listing-hero__sub" id="listing-sub">ציוד פרימיום שנבחר ביד לכלבים</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="listing-layout">
+      <!-- Sidebar -->
+      <aside class="listing-sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-section__title">קטגוריה</div>
+          <div class="sidebar-filter-list" id="cat-filters"></div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section__title">מיון</div>
+          <div class="sidebar-filter-list" id="sort-filters"></div>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <main>
+        <div class="sort-bar">
+          <span class="sort-bar__count" id="products-count"></span>
+          <div class="sort-bar__right">
+            <label for="sort-select" style="font-size:13px;font-weight:600;color:var(--slate-600);">מיון:</label>
+            <select class="sort-select" id="sort-select">
+              <option value="default">מומלץ</option>
+              <option value="rating">דירוג</option>
+              <option value="discount">אחוז הנחה</option>
+              <option value="price-asc">מחיר: נמוך לגבוה</option>
+              <option value="price-desc">מחיר: גבוה לנמוך</option>
+            </select>
+          </div>
+        </div>
+        <div class="products-grid" id="products-grid"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+  <script>PETSHOP_LAYOUT.mountLayout({ activePath: 'products.html' });</script>
+  <script>
+    const { CATEGORIES, PRODUCTS, fmtPrice, discountPct } = window.PETSHOP;
+    const ICONS = window.PETSHOP_ICONS;
+    const stars = window.PETSHOP_STARS;
+
+    // State
+    const params = new URLSearchParams(location.search);
+    let activeCategory = params.get('category') || 'all';
+    let activeSort = params.get('sort') || 'default';
+    const query = (params.get('q') || '').trim().toLowerCase();
+
+    // Inject into selects
+    document.getElementById('sort-select').value = activeSort;
+    const searchInput = document.querySelector('.nav__search input[name="q"]');
+    if (searchInput && query) searchInput.value = params.get('q');
+
+    // Category filters (sidebar)
+    const allCats = [{ slug: 'all', title: 'כל הקטגוריות' }, ...CATEGORIES];
+    const catCounts = {};
+    PRODUCTS.forEach(p => { catCounts[p.category] = (catCounts[p.category] || 0) + 1; });
+
+    function renderSidebarCats() {
+      document.getElementById('cat-filters').innerHTML = allCats.map(c => `
+        <button class="sidebar-filter-btn ${activeCategory === c.slug ? 'is-active' : ''}" data-cat="${c.slug}">
+          ${c.title}
+          <span class="count">${c.slug === 'all' ? PRODUCTS.length : (catCounts[c.slug] || 0)}</span>
+        </button>`).join('');
+    }
+
+    const sortOpts = [
+      { val: 'default', label: 'מומלץ' },
+      { val: 'rating', label: 'דירוג גבוה' },
+      { val: 'discount', label: 'הנחה גדולה' },
+      { val: 'price-asc', label: 'מחיר עולה' },
+      { val: 'price-desc', label: 'מחיר יורד' }
+    ];
+    function renderSidebarSort() {
+      document.getElementById('sort-filters').innerHTML = sortOpts.map(s => `
+        <button class="sidebar-filter-btn ${activeSort === s.val ? 'is-active' : ''}" data-sort="${s.val}">
+          ${s.label}
+        </button>`).join('');
+    }
+
+    // Mobile chips
+    function renderMobileFilters() {
+      document.getElementById('mobile-filters').innerHTML = allCats.map(c => `
+        <button class="mobile-filter-chip ${activeCategory === c.slug ? 'is-active' : ''}" data-cat="${c.slug}">${c.title}</button>`
+      ).join('');
+    }
+
+    function getFiltered() {
+      let list = activeCategory === 'all' ? [...PRODUCTS] : PRODUCTS.filter(p => p.category === activeCategory);
+      if (query) {
+        list = list.filter(p =>
+          p.title.toLowerCase().includes(query) ||
+          (p.desc || '').toLowerCase().includes(query)
+        );
+      }
+      switch (activeSort) {
+        case 'rating': list.sort((a,b) => b.rating - a.rating); break;
+        case 'discount': list.sort((a,b) => discountPct(b.price,b.was) - discountPct(a.price,a.was)); break;
+        case 'price-asc': list.sort((a,b) => a.price - b.price); break;
+        case 'price-desc': list.sort((a,b) => b.price - a.price); break;
+      }
+      return list;
+    }
+
+    function renderGrid() {
+      const list = getFiltered();
+      document.getElementById('products-count').textContent = list.length + ' מוצרים';
+      if (!list.length) {
+        document.getElementById('products-grid').innerHTML = `<div class="products-empty"><h3>לא נמצאו מוצרים</h3><p>נסו לשנות את הסינון</p></div>`;
+        return;
+      }
+      document.getElementById('products-grid').innerHTML = list.map(p => {
+        const disc = discountPct(p.price, p.was);
+        return `
+          <a href="product.html?id=${p.id}" class="product-card">
+            <div class="product-card__image">
+              <img src="${p.img}" alt="${p.title}" loading="lazy" />
+              ${p.tag ? `<span class="product-card__tag">${p.tag}</span>` : ''}
+              ${disc ? `<span class="product-card__discount">−${disc}%</span>` : ''}
+            </div>
+            <div class="product-card__body">
+              <div class="product-card__meta">
+                ${stars(p.rating)}
+                <span class="product-card__reviews num">(${p.reviews.toLocaleString('he-IL')})</span>
+              </div>
+              <h3 class="product-card__title">${p.title}</h3>
+              <div class="product-card__price">
+                <span class="product-card__current">₪<span class="num">${fmtPrice(p.price)}</span></span>
+                ${p.was ? `<span class="product-card__was">₪<span class="num">${fmtPrice(p.was)}</span></span>` : ''}
+              </div>
+              <button class="btn btn--primary btn--sm btn--block" data-add-to-cart="${p.id}" style="margin-top:12px;">
+                ${ICONS.cart} הוסף לעגלה
+              </button>
+            </div>
+          </a>`;
+      }).join('');
+
+      // Update listing title
+      if (query) {
+        document.getElementById('listing-title').textContent = `תוצאות עבור "${params.get('q')}"`;
+        document.getElementById('listing-sub').textContent = `${list.length} מוצרים תואמים`;
+      } else if (activeCategory !== 'all') {
+        const cat = CATEGORIES.find(c => c.slug === activeCategory);
+        if (cat) {
+          document.getElementById('listing-title').textContent = cat.title;
+          document.getElementById('listing-sub').textContent = cat.tagline;
+        }
+      } else {
+        document.getElementById('listing-title').textContent = 'כל המוצרים';
+        document.getElementById('listing-sub').textContent = 'ציוד פרימיום שנבחר ביד לכלבים';
+      }
+    }
+
+    function render() {
+      renderSidebarCats();
+      renderSidebarSort();
+      renderMobileFilters();
+      renderGrid();
+    }
+
+    // Events
+    document.addEventListener('click', e => {
+      const catBtn = e.target.closest('[data-cat]');
+      const sortBtn = e.target.closest('[data-sort]');
+      if (catBtn) { activeCategory = catBtn.dataset.cat; render(); }
+      if (sortBtn) { activeSort = sortBtn.dataset.sort; document.getElementById('sort-select').value = activeSort; render(); }
+    });
+    document.getElementById('sort-select').addEventListener('change', e => {
+      activeSort = e.target.value; render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
