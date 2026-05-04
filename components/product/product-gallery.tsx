@@ -29,9 +29,9 @@ export default function ProductGallery({ images, alt }: { images: string[]; alt:
                 'relative h-20 w-20 shrink-0 overflow-hidden rounded-md border-2',
                 active === i ? 'border-brand' : 'border-transparent'
               )}
-              aria-label={`View image ${i + 1}`}
+              aria-label={`הצג תמונה ${i + 1}`}
             >
-              <Image src={src} alt={`${alt} thumbnail ${i + 1}`} fill sizes="80px" className="object-cover" />
+              <Image src={src} alt={`${alt} תמונה ${i + 1}`} fill sizes="80px" className="object-cover" />
             </button>
           ))}
         </div>

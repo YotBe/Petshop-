@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { discountPct, formatUSD } from '@/lib/utils';
+import { discountPct, formatILS } from '@/lib/utils';
 import { useCart } from '@/store/cart-store';
 import type { Product } from '@/lib/types';
 
@@ -23,9 +23,9 @@ export default function ProductCard({ product }: { product: Product }) {
           sizes="(max-width: 768px) 50vw, 25vw"
           className="object-cover zoom-on-hover"
         />
-        <div className="absolute left-3 top-3 flex flex-col gap-1">
-          {pct > 0 && <Badge variant="sale">-{pct}%</Badge>}
-          {product.stockStatus === 'low-stock' && <Badge variant="warning">Low stock</Badge>}
+        <div className="absolute start-3 top-3 flex flex-col gap-1">
+          {pct > 0 && <Badge variant="sale">{pct}%-</Badge>}
+          {product.stockStatus === 'low-stock' && <Badge variant="warning">מלאי נמוך</Badge>}
         </div>
       </Link>
       <div className="flex flex-1 flex-col p-4">
@@ -35,12 +35,12 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="mt-1 flex items-center gap-1 text-xs text-slate-600">
           <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
           <span className="font-medium">{product.rating.toFixed(1)}</span>
-          <span className="text-slate-400">({product.reviewCount.toLocaleString()})</span>
+          <span className="text-slate-400">({product.reviewCount.toLocaleString('he-IL')})</span>
         </div>
         <div className="mt-2 flex items-baseline gap-2">
-          <span className="font-bold">{formatUSD(product.price)}</span>
+          <span className="font-bold">{formatILS(product.price)}</span>
           {product.originalPrice && (
-            <span className="text-sm text-slate-400 line-through">{formatUSD(product.originalPrice)}</span>
+            <span className="text-sm text-slate-400 line-through">{formatILS(product.originalPrice)}</span>
           )}
         </div>
         <Button
@@ -48,7 +48,7 @@ export default function ProductCard({ product }: { product: Product }) {
           onClick={() => add(product, 1)}
           disabled={product.stockStatus === 'out-of-stock'}
         >
-          {product.stockStatus === 'out-of-stock' ? 'Sold out' : 'Add to cart'}
+          {product.stockStatus === 'out-of-stock' ? 'אזל מהמלאי' : 'הוסף לעגלה'}
         </Button>
       </div>
     </div>

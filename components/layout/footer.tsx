@@ -8,38 +8,38 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2 font-bold">
             <Dog className="h-5 w-5 text-brand" />
-            <span>Petshop</span>
+            <span>פטשופ</span>
           </div>
           <p className="mt-3 text-sm text-slate-600">
-            Premium gear for your active companion.
+            ציוד פרימיום לחבר הפעיל שלך.
           </p>
         </div>
         <div>
-          <h4 className="text-sm font-semibold">Shop</h4>
+          <h4 className="text-sm font-semibold">קנייה</h4>
           <ul className="mt-3 space-y-2 text-sm text-slate-600">
-            <li><Link href="/products">All products</Link></li>
-            <li><Link href="/products?category=harnesses-leashes">Harnesses & Leashes</Link></li>
-            <li><Link href="/products?category=outdoor-gear">Outdoor Gear</Link></li>
-            <li><Link href="/products?category=interactive-toys">Toys</Link></li>
+            <li><Link href="/products">כל המוצרים</Link></li>
+            <li><Link href="/products?category=harnesses-leashes">רתמות ורצועות</Link></li>
+            <li><Link href="/products?category=outdoor-gear">ציוד חוץ</Link></li>
+            <li><Link href="/products?category=interactive-toys">צעצועים</Link></li>
           </ul>
         </div>
         <div>
-          <h4 className="text-sm font-semibold">Help</h4>
+          <h4 className="text-sm font-semibold">עזרה</h4>
           <ul className="mt-3 space-y-2 text-sm text-slate-600">
-            <li>Shipping &amp; Returns</li>
-            <li>Sizing Guide</li>
-            <li>Contact</li>
+            <li>משלוחים והחזרות</li>
+            <li>מדריך מידות</li>
+            <li>צרו קשר</li>
           </ul>
         </div>
         <div>
-          <h4 className="text-sm font-semibold">Stay in the loop</h4>
+          <h4 className="text-sm font-semibold">הישארו מעודכנים</h4>
           <p className="mt-3 text-sm text-slate-600">
-            New gear, drops, and trail-tested gear reviews.
+            מוצרים חדשים, מבצעים וביקורת ציוד מהשטח.
           </p>
         </div>
       </div>
       <div className="border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} Petshop. All rights reserved.
+        © {new Date().getFullYear()} פטשופ. כל הזכויות שמורות.
       </div>
     </footer>
   );

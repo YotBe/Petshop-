@@ -5,7 +5,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
   if (products.length === 0) {
     return (
       <div className="py-16 text-center text-slate-500">
-        No products match your filter.
+        לא נמצאו מוצרים תואמים לסינון.
       </div>
     );
   }

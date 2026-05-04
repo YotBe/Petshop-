@@ -24,12 +24,12 @@ export default function ProductsPage({
     <div className="container py-10">
       <h1 className="text-3xl font-bold">
         {category
-          ? CATEGORIES.find((c) => c.slug === category)?.title ?? 'Shop'
-          : 'All Products'}
+          ? CATEGORIES.find((c) => c.slug === category)?.title ?? 'קנייה'
+          : 'כל המוצרים'}
       </h1>
       <p className="mt-1 text-slate-600">
-        {products.length} {products.length === 1 ? 'product' : 'products'}
-        {q && <> matching “{q}”</>}
+        {products.length} {products.length === 1 ? 'מוצר' : 'מוצרים'}
+        {q && <> תואמים ל-“{q}”</>}
       </p>
 
       <div className="mt-6 flex flex-wrap gap-2">
@@ -40,7 +40,7 @@ export default function ProductsPage({
             !category ? 'border-brand bg-brand text-white' : 'border-slate-300 hover:bg-slate-100'
           )}
         >
-          All
+          הכל
         </Link>
         {CATEGORIES.map((c) => (
           <Link

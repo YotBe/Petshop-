@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { PRODUCTS } from '@/lib/products';
 import ProductGrid from '@/components/product/product-grid';
 
@@ -12,11 +12,11 @@ export default function FeaturedProducts() {
     <section className="container pb-16">
       <div className="mb-6 flex items-end justify-between">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold">Top-rated gear</h2>
-          <p className="mt-2 text-slate-600">Most loved by trail-tough dogs.</p>
+          <h2 className="text-2xl md:text-3xl font-bold">הציוד הכי מדורג</h2>
+          <p className="mt-2 text-slate-600">אהוב על הכלבים הקשוחים שלנו.</p>
         </div>
         <Link href="/products" className="hidden md:inline-flex items-center gap-1 text-sm font-medium text-brand hover:text-brand-dark">
-          View all <ArrowRight className="h-4 w-4" />
+          ראה הכל <ArrowLeft className="h-4 w-4" />
         </Link>
       </div>
       <ProductGrid products={top4} />

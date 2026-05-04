@@ -7,8 +7,8 @@ const ICONS = { Shield, Mountain, Gamepad2, GraduationCap };
 export default function CategoryGrid() {
   return (
     <section className="container py-16">
-      <h2 className="text-2xl md:text-3xl font-bold">Shop by category</h2>
-      <p className="mt-2 text-slate-600">Curated gear for every adventure.</p>
+      <h2 className="text-2xl md:text-3xl font-bold">קנה לפי קטגוריה</h2>
+      <p className="mt-2 text-slate-600">ציוד אצור לכל הרפתקה.</p>
       <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
         {CATEGORIES.map((c) => {
           const Icon = ICONS[c.icon as keyof typeof ICONS] ?? Shield;

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { formatUSD } from '@/lib/utils';
+import { formatILS } from '@/lib/utils';
 import { useCart } from '@/store/cart-store';
 import type { Product } from '@/lib/types';
 
@@ -29,7 +29,7 @@ export default function FrequentlyBoughtTogether({
 
   return (
     <section className="rounded-xl border border-slate-200 bg-white p-5">
-      <h3 className="text-lg font-semibold">Frequently bought together</h3>
+      <h3 className="text-lg font-semibold">נקנה לעיתים קרובות יחד</h3>
       <div className="mt-4 flex flex-wrap items-center gap-3">
         {items.map((p, i) => (
           <div key={p.id} className="flex items-center gap-3">
@@ -39,7 +39,7 @@ export default function FrequentlyBoughtTogether({
               </div>
               <div>
                 <div className="text-sm font-medium line-clamp-2 max-w-[160px]">{p.title}</div>
-                <div className="text-sm text-slate-600">{formatUSD(p.price)}</div>
+                <div className="text-sm text-slate-600">{formatILS(p.price)}</div>
                 <input
                   type="checkbox"
                   checked={!!picked[p.id]}
@@ -54,13 +54,13 @@ export default function FrequentlyBoughtTogether({
       </div>
       <div className="mt-5 flex items-center justify-between">
         <div className="text-sm text-slate-600">
-          Bundle total: <span className="font-bold text-slate-900">{formatUSD(total)}</span>
+          סך החבילה: <span className="font-bold text-slate-900">{formatILS(total)}</span>
         </div>
         <Button
           onClick={() => items.filter((p) => picked[p.id]).forEach((p) => add(p, 1))}
           variant="accent"
         >
-          Add bundle to cart
+          הוסף חבילה לעגלה
         </Button>
       </div>
     </section>

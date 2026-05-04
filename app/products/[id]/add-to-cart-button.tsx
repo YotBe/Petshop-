@@ -20,7 +20,7 @@ export default function AddToCartButton({ productId }: { productId: string }) {
         <button
           className="p-2 hover:bg-slate-100"
           onClick={() => setQty((q) => Math.max(1, q - 1))}
-          aria-label="decrease"
+          aria-label="הפחת"
         >
           <Minus className="h-4 w-4" />
         </button>
@@ -28,7 +28,7 @@ export default function AddToCartButton({ productId }: { productId: string }) {
         <button
           className="p-2 hover:bg-slate-100"
           onClick={() => setQty((q) => q + 1)}
-          aria-label="increase"
+          aria-label="הוסף"
         >
           <Plus className="h-4 w-4" />
         </button>
@@ -39,7 +39,7 @@ export default function AddToCartButton({ productId }: { productId: string }) {
         disabled={soldOut}
         onClick={() => add(product, qty)}
       >
-        {soldOut ? 'Sold out' : 'Add to cart'}
+        {soldOut ? 'אזל מהמלאי' : 'הוסף לעגלה'}
       </Button>
     </div>
   );
