@@ -6,6 +6,7 @@ import { Star } from 'lucide-react';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { DiscountStamp } from '@/components/ui/discount-stamp';
 import { discountPct, formatILS } from '@/lib/utils';
 import { useCart } from '@/store/cart-store';
 import { track } from '@/lib/analytics';
@@ -48,12 +49,18 @@ export default function ProductCard({ product }: { product: Product }) {
           sizes="(max-width: 768px) 50vw, 25vw"
           className="object-contain p-3 transition duration-500 group-hover:scale-[1.04]"
         />
-        <div className="absolute start-2.5 top-2.5 flex flex-col gap-1.5">
-          {onSale && <Badge variant="sale">חסכו {pct}%</Badge>}
-          {product.stockStatus === 'low-stock' && (
+        {onSale && (
+          <DiscountStamp
+            pct={pct}
+            size="md"
+            className="absolute -start-2 -top-2 rotate-[-8deg] z-10"
+          />
+        )}
+        {product.stockStatus === 'low-stock' && (
+          <div className={`absolute start-2.5 ${onSale ? 'top-16' : 'top-2.5'}`}>
             <Badge variant="warning">מלאי נמוך</Badge>
-          )}
-        </div>
+          </div>
+        )}
         {label && (
           <div className="absolute end-2.5 top-2.5">
             <Badge variant={label.variant}>{label.text}</Badge>

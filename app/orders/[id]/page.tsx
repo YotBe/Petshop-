@@ -116,6 +116,25 @@ export default function OrderTrackingPage({
         </p>
       </header>
 
+      {fs === 'arrived_at_base' && (
+        <aside
+          role="status"
+          className="mt-8 rounded-2xl bg-forest p-6 text-white shadow-md ring-1 ring-forest-dark"
+        >
+          <div className="flex items-start gap-4">
+            <PackageCheck className="h-7 w-7 shrink-0 text-accent" aria-hidden />
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+                עדכון אישי
+              </p>
+              <p className="mt-2 text-base font-bold leading-relaxed sm:text-lg">
+                החבילה הגיעה למשרדים שלנו בתל אביב לבקרת איכות ואריזה אישית
+              </p>
+            </div>
+          </div>
+        </aside>
+      )}
+
       <ol className="mt-10 space-y-4">
         {phases.map((phase, i) => {
           const isCompleted = phase.completedAt.includes(fs);
