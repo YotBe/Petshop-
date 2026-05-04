@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { Star, Truck, ShieldCheck, Undo2 } from 'lucide-react';
+import { Star, Truck, ShieldCheck, Heart } from 'lucide-react';
 import { getProduct, getRelated, PRODUCTS } from '@/lib/products';
 import ProductGallery from '@/components/product/product-gallery';
 import FrequentlyBoughtTogether from '@/components/product/frequently-bought-together';
@@ -24,8 +24,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       <div className="grid gap-10 md:grid-cols-2">
         <ProductGallery images={product.images} alt={product.title} />
 
-        <div className="flex flex-col">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
             {pct > 0 && <Badge variant="sale">חסכו {pct}%</Badge>}
             <Badge variant="outline">
               {product.stockStatus === 'in-stock'
@@ -35,14 +35,14 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                   : 'אזל מהמלאי'}
             </Badge>
           </div>
-          <h1 className="mt-3 text-3xl font-bold md:text-4xl">{product.title}</h1>
-          <div className="mt-2 flex items-center gap-2 text-sm text-slate-600">
+          <h1 className="mt-3 text-2xl font-bold sm:text-3xl md:text-4xl">{product.title}</h1>
+          <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-slate-600">
             <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
             <span className="font-semibold text-slate-900">{product.rating.toFixed(1)}</span>
             <span>({product.reviewCount.toLocaleString('he-IL')} ביקורות)</span>
           </div>
 
-          <div className="mt-4 flex items-baseline gap-3">
+          <div className="mt-4 flex flex-wrap items-baseline gap-3">
             <span className="text-3xl font-bold">{formatILS(product.price)}</span>
             {product.originalPrice && (
               <span className="text-slate-400 line-through">
@@ -51,22 +51,22 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             )}
           </div>
 
-          <p className="mt-4 text-slate-700">{product.description}</p>
+          <p className="mt-4 text-slate-700 leading-relaxed">{product.description}</p>
 
           <AddToCartButton productId={product.id} />
 
           <ul className="mt-6 grid grid-cols-3 gap-3 text-xs text-slate-600">
             <li className="flex flex-col items-center rounded-lg border border-slate-200 p-3 text-center">
-              <Truck className="h-5 w-5 text-brand" />
-              <span className="mt-1">משלוח חינם מעל ₪199</span>
-            </li>
-            <li className="flex flex-col items-center rounded-lg border border-slate-200 p-3 text-center">
               <ShieldCheck className="h-5 w-5 text-brand" />
-              <span className="mt-1">אחריות מוכחת בשטח</span>
+              <span className="mt-1 leading-tight">תשלום מאובטח ב-Stripe</span>
             </li>
             <li className="flex flex-col items-center rounded-lg border border-slate-200 p-3 text-center">
-              <Undo2 className="h-5 w-5 text-brand" />
-              <span className="mt-1">החזרה תוך 30 יום</span>
+              <Truck className="h-5 w-5 text-brand" />
+              <span className="mt-1 leading-tight">משלוחים לכל הארץ</span>
+            </li>
+            <li className="flex flex-col items-center rounded-lg border border-slate-200 p-3 text-center">
+              <Heart className="h-5 w-5 text-brand" />
+              <span className="mt-1 leading-tight">נבחר בקפידה</span>
             </li>
           </ul>
 
@@ -94,8 +94,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             {showSizeChart && (
               <>
                 <h3 className="mt-5 text-sm font-semibold">טבלת מידות (היקף חזה)</h3>
-                <div className="mt-2 overflow-hidden rounded-md border border-slate-200 text-sm">
-                  <table className="w-full">
+                <div className="mt-2 overflow-x-auto rounded-md border border-slate-200 text-sm">
+                  <table className="w-full min-w-[420px]">
                     <thead className="bg-slate-50 text-start text-slate-500">
                       <tr>
                         <th className="px-3 py-2 text-start">מידה</th>
