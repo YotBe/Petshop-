@@ -1,5 +1,6 @@
 import Hero from '@/components/home/hero';
 import CategoryGrid from '@/components/home/category-grid';
+import SaleSection from '@/components/home/sale-section';
 import FeaturedProducts from '@/components/home/featured-products';
 
 export default function HomePage() {
@@ -7,6 +8,7 @@ export default function HomePage() {
     <>
       <Hero />
       <CategoryGrid />
+      <SaleSection />
       <FeaturedProducts />
     </>
   );

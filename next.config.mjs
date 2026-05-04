@@ -3,7 +3,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: 'cdn.pixabay.com' }
+      { protocol: 'https', hostname: 'cdn.pixabay.com' },
+      { protocol: 'https', hostname: 'ae01.alicdn.com' },
+      { protocol: 'https', hostname: 'ae04.alicdn.com' },
+      { protocol: 'https', hostname: 'ae-pic-a1.aliexpress-media.com' }
     ]
   }
 };

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Minus, Plus } from 'lucide-react';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/store/cart-store';
 import { getProduct } from '@/lib/products';
@@ -13,6 +14,14 @@ export default function AddToCartButton({ productId }: { productId: string }) {
 
   if (!product) return null;
   const soldOut = product.stockStatus === 'out-of-stock';
+
+  function handleAdd() {
+    if (!product) return;
+    add(product, qty);
+    toast.success('המוצר נוסף לעגלה בהצלחה!', {
+      description: `${qty} × ${product.title}`
+    });
+  }
 
   return (
     <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -37,7 +46,7 @@ export default function AddToCartButton({ productId }: { productId: string }) {
         size="lg"
         className="flex-1 min-w-[180px]"
         disabled={soldOut}
-        onClick={() => add(product, qty)}
+        onClick={handleAdd}
       >
         {soldOut ? 'אזל מהמלאי' : 'הוסף לעגלה'}
       </Button>

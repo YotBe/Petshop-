@@ -30,10 +30,10 @@ export default function CartDrawer() {
             <ul className="space-y-4">
               {items.map((item) => (
                 <li key={item.productId} className="flex gap-3">
-                  <div className="relative h-20 w-20 overflow-hidden rounded-md bg-slate-100">
+                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md bg-slate-100">
                     <Image src={item.image} alt={item.title} fill sizes="80px" className="object-cover" />
                   </div>
-                  <div className="flex flex-1 flex-col">
+                  <div className="flex flex-1 flex-col min-w-0">
                     <Link
                       href={`/products/${item.productId}`}
                       onClick={close}
@@ -42,7 +42,7 @@ export default function CartDrawer() {
                       {item.title}
                     </Link>
                     <div className="mt-1 text-sm text-slate-600">{formatILS(item.price)}</div>
-                    <div className="mt-auto flex items-center justify-between">
+                    <div className="mt-auto flex items-center justify-between gap-2">
                       <div className="inline-flex items-center rounded-md border border-slate-200">
                         <button
                           className="p-1.5 hover:bg-slate-100"
