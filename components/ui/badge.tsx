@@ -2,13 +2,16 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 type BadgeProps = React.HTMLAttributes<HTMLSpanElement> & {
-  variant?: 'default' | 'sale' | 'outline' | 'success' | 'warning';
+  variant?: 'default' | 'sale' | 'outline' | 'success' | 'warning' | 'accent' | 'brand' | 'bestseller';
 };
 
 export function Badge({ className, variant = 'default', ...props }: BadgeProps) {
   const styles = {
     default: 'bg-slate-900 text-white',
-    sale: 'bg-rose-600 text-white',
+    sale: 'bg-accent text-white',
+    accent: 'bg-accent text-white',
+    brand: 'bg-brand text-white',
+    bestseller: 'bg-amber-500 text-white',
     outline: 'border border-slate-300 text-slate-700',
     success: 'bg-emerald-100 text-emerald-800',
     warning: 'bg-amber-100 text-amber-800'

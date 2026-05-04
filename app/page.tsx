@@ -3,6 +3,7 @@ import TrustBar from '@/components/home/trust-bar';
 import CategoryGrid from '@/components/home/category-grid';
 import SaleSection from '@/components/home/sale-section';
 import FeaturedProducts from '@/components/home/featured-products';
+import ActiveDogs from '@/components/home/active-dogs';
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
       <CategoryGrid />
       <SaleSection />
       <FeaturedProducts />
+      <ActiveDogs />
     </>
   );
 }
