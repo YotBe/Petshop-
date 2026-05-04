@@ -13,7 +13,8 @@ import {
   Mail,
   Truck,
   Ruler,
-  ArrowLeft
+  ArrowLeft,
+  Sparkles
 } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
@@ -22,6 +23,7 @@ import SignInButton from '@/components/auth/sign-in-button';
 
 const PRIMARY_LINKS = [
   { href: '/products', label: 'כל המוצרים', Icon: ShoppingBag },
+  { href: '/bundles', label: 'ערכות ברוכים הבאים', Icon: Sparkles },
   { href: '/#deals', label: 'מבצעים', Icon: Tag },
   { href: '/#top-rated', label: 'הכי מדורג', Icon: Star },
   { href: '/about', label: 'אודות', Icon: Info },

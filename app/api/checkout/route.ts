@@ -1,14 +1,21 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { PRODUCTS } from '@/lib/products';
-import type { CartItem } from '@/lib/types';
+import { allocateBundlePrices, getBundle } from '@/lib/bundles';
+import { createOrder } from '@/lib/orders';
+import { notifyOrderStatus } from '@/lib/notifications';
+import type { CartItem, OrderLine } from '@/lib/types';
 
 /**
- * Stripe checkout skeleton (ILS).
+ * Stripe checkout (ILS).
  *
- * 1. Validates cart against server-side product prices.
- * 2. Creates a PaymentIntent with the calculated amount.
- * 3. Returns the client_secret so the frontend can confirm with Stripe.js.
+ * 1. Validates cart against server-side product prices, RE-DERIVING bundle
+ *    line prices from the canonical BUNDLES table (clients can claim any
+ *    bundleId; we never trust client `price`).
+ * 2. Persists an Order row (mock in-memory for now).
+ * 3. Fires the "order received" notification (best-effort; never blocks).
+ * 4. Creates a PaymentIntent if Stripe is configured; otherwise returns
+ *    a mock orderId so the success page still flows.
  */
 export async function POST(req: Request) {
   try {
@@ -22,27 +29,85 @@ export async function POST(req: Request) {
     }
 
     let subtotal = 0;
+    const lines: OrderLine[] = [];
+
+    // Cache allocated maps so we don't recompute per item in the same bundle.
+    const bundleAllocations = new Map<string, Map<string, number>>();
+
     for (const item of items) {
       const product = PRODUCTS.find((p) => p.id === item.productId);
       if (!product) {
-        return NextResponse.json({ error: `מוצר לא ידוע ${item.productId}` }, { status: 400 });
+        return NextResponse.json(
+          { error: `מוצר לא ידוע ${item.productId}` },
+          { status: 400 }
+        );
       }
       const qty = Math.max(1, Math.floor(item.quantity));
-      subtotal += product.price * qty;
+
+      let unitPrice = product.price;
+      let bundleId: string | undefined;
+      let bundleTitle: string | undefined;
+
+      if (item.bundleId) {
+        const bundle = getBundle(item.bundleId);
+        if (bundle) {
+          let allocated = bundleAllocations.get(bundle.id);
+          if (!allocated) {
+            allocated = allocateBundlePrices(bundle);
+            bundleAllocations.set(bundle.id, allocated);
+          }
+          const fromBundle = allocated.get(product.id);
+          if (typeof fromBundle === 'number') {
+            unitPrice = fromBundle;
+            bundleId = bundle.id;
+            bundleTitle = bundle.title;
+          }
+          // If product isn't part of the claimed bundle, fall through to
+          // catalog price (no discount granted).
+        }
+      }
+
+      subtotal += unitPrice * qty;
+      lines.push({
+        productId: product.id,
+        title: product.title,
+        quantity: qty,
+        price: unitPrice,
+        aliexpressUrl: product.aliexpressUrl,
+        ...(bundleId ? { bundleId, bundleTitle } : {})
+      });
     }
-    // Free shipping over ₪199; otherwise ₪24.99 flat.
+
     const shipping = subtotal > 19900 ? 0 : 2499;
     const amount = subtotal + shipping;
 
-    const orderId = `ord_${Date.now().toString(36)}`;
+    const order = createOrder({
+      customer: {
+        name: customer.name || '',
+        email: customer.email || '',
+        phone: customer.phone || undefined,
+        address: customer.address || '',
+        city: customer.city || '',
+        postalCode: customer.postalCode || '',
+        country: customer.country || 'ישראל'
+      },
+      lines,
+      subtotal,
+      shipping,
+      total: amount
+    });
+
+    // Fire-and-forget notification — must not block checkout response.
+    notifyOrderStatus(order, 'received').catch((err) => {
+      console.error('[checkout] notifyOrderStatus failed:', err);
+    });
 
     if (!process.env.STRIPE_SECRET_KEY) {
       return NextResponse.json({
-        orderId,
+        orderId: order.id,
         amount,
         clientSecret: null,
-        mock: true,
-        customer
+        mock: true
       });
     }
 
@@ -51,11 +116,11 @@ export async function POST(req: Request) {
       amount,
       currency: 'ils',
       automatic_payment_methods: { enabled: true },
-      metadata: { orderId, customerEmail: customer?.email ?? '' }
+      metadata: { orderId: order.id, customerEmail: customer?.email ?? '' }
     });
 
     return NextResponse.json({
-      orderId,
+      orderId: order.id,
       amount,
       clientSecret: intent.client_secret
     });

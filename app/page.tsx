@@ -1,6 +1,7 @@
 import Hero from '@/components/home/hero';
 import TrustBar from '@/components/home/trust-bar';
 import CategoryGrid from '@/components/home/category-grid';
+import WelcomeHomeBundles from '@/components/home/welcome-home-bundles';
 import SaleSection from '@/components/home/sale-section';
 import FeaturedProducts from '@/components/home/featured-products';
 import FieldTested from '@/components/home/field-tested';
@@ -15,6 +16,7 @@ export default function HomePage() {
       <Hero />
       <TrustBar />
       <CategoryGrid />
+      <WelcomeHomeBundles />
       <SaleSection />
       <FeaturedProducts />
       <FieldTested />

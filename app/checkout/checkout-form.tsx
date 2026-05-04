@@ -24,6 +24,7 @@ export default function CheckoutForm() {
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: '',
+    phone: '',
     name: '',
     address: '',
     city: '',
@@ -60,22 +61,43 @@ export default function CheckoutForm() {
     <form onSubmit={handleSubmit} className="space-y-8">
       <section className="rounded-xl border border-slate-200 bg-white p-5 md:p-6">
         <h2 className="text-lg font-semibold">פרטי קשר</h2>
-        <div className="mt-4">
-          <label htmlFor="checkout-email" className="text-sm font-medium">אימייל</label>
-          <Input
-            id="checkout-email"
-            type="email"
-            required
-            dir="ltr"
-            inputMode="email"
-            autoComplete="email"
-            autoCapitalize="none"
-            spellCheck={false}
-            value={form.email}
-            onChange={update('email')}
-            placeholder="name@example.co.il"
-            className="mt-1.5"
-          />
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="sm:col-span-2">
+            <label htmlFor="checkout-email" className="text-sm font-medium">אימייל</label>
+            <Input
+              id="checkout-email"
+              type="email"
+              required
+              dir="ltr"
+              inputMode="email"
+              autoComplete="email"
+              autoCapitalize="none"
+              spellCheck={false}
+              value={form.email}
+              onChange={update('email')}
+              placeholder="name@example.co.il"
+              className="mt-1.5"
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label htmlFor="checkout-phone" className="text-sm font-medium">
+              טלפון{' '}
+              <span className="text-slate-400 font-normal">
+                (לעדכוני SMS — אופציונלי)
+              </span>
+            </label>
+            <Input
+              id="checkout-phone"
+              type="tel"
+              dir="ltr"
+              inputMode="tel"
+              autoComplete="tel"
+              value={form.phone}
+              onChange={update('phone')}
+              placeholder="050-123-4567"
+              className="mt-1.5"
+            />
+          </div>
         </div>
       </section>
 
