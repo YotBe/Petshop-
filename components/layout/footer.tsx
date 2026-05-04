@@ -12,7 +12,7 @@ export default function Footer() {
         <section id="about" className="scroll-mt-20">
           <div className="flex items-center gap-2 font-extrabold text-white">
             <PawPrint className="h-5 w-5 text-accent" />
-            <span className="font-display text-lg">פטופיה</span>
+            <span className="font-display text-lg">פטשופ</span>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-slate-300">
             חנות ישראלית לציוד פרימיום לחיות מחמד. אנחנו זוג עם שני כלבים שהקימו
@@ -33,13 +33,13 @@ export default function Footer() {
         </section>
 
         <section>
-          <h4 className="text-sm font-semibold text-white">שירות</h4>
+          <h4 className="text-sm font-semibold text-white">עזרה</h4>
           <ul className="mt-4 space-y-2 text-sm">
+            <li><Link href="/shipping" className="hover:text-white">משלוחים והחזרות</Link></li>
+            <li><Link href="/size-guide" className="hover:text-white">מדריך מידות</Link></li>
             <li><Link href="/contact" className="hover:text-white">שאלות נפוצות</Link></li>
-            <li><Link href="/contact" className="hover:text-white">משלוחים והחזרות</Link></li>
-            <li><Link href="/contact" className="hover:text-white">טבלת מידות</Link></li>
-            <li><Link href="/about" className="hover:text-white">אודות פטופיה</Link></li>
-            <li><Link href="/contact" className="hover:text-white">צור קשר</Link></li>
+            <li><Link href="/about" className="hover:text-white">אודות פטשופ</Link></li>
+            <li><Link href="/contact" className="hover:text-white">צרו קשר</Link></li>
           </ul>
         </section>
 
@@ -48,8 +48,8 @@ export default function Footer() {
           <ul className="mt-4 space-y-3 text-sm">
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-accent" />
-              <a href="mailto:hello@petopia.co.il" className="hover:text-white">
-                hello@petopia.co.il
+              <a href="mailto:hello@petshop.co.il" className="hover:text-white">
+                hello@petshop.co.il
               </a>
             </li>
             <li className="flex items-center gap-2">
@@ -93,7 +93,7 @@ export default function Footer() {
             ))}
           </ul>
           <p className="text-xs text-slate-400">
-            © <span className="num">{year}</span> פטופיה · כל הזכויות שמורות
+            © <span className="num">{year}</span> פטשופ · כל הזכויות שמורות
           </p>
         </div>
       </div>

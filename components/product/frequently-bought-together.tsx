@@ -57,7 +57,9 @@ export default function FrequentlyBoughtTogether({
                 <div className="text-sm font-medium line-clamp-2 max-w-[160px]">
                   {p.title}
                 </div>
-                <div className="text-sm text-slate-600">{formatILS(p.price)}</div>
+                <div className="text-sm text-slate-600">
+                  <span className="num whitespace-nowrap">{formatILS(p.price)}</span>
+                </div>
                 <input
                   type="checkbox"
                   checked={!!picked[p.id]}
@@ -75,7 +77,9 @@ export default function FrequentlyBoughtTogether({
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
         <div className="text-sm text-slate-600">
           סך החבילה:{' '}
-          <span className="font-bold text-slate-900">{formatILS(total)}</span>
+          <span className="num whitespace-nowrap font-bold text-slate-900">
+            {formatILS(total)}
+          </span>
         </div>
         <Button onClick={handleAddBundle} variant="accent">
           הוסף חבילה לעגלה

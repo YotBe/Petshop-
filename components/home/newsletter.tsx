@@ -29,7 +29,7 @@ export default function Newsletter() {
         <div className="grid items-center gap-8 md:grid-cols-5">
           <div className="md:col-span-3">
             <p className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-accent">
-              <Sparkles className="h-3.5 w-3.5" /> מועדון פטופיה
+              <Sparkles className="h-3.5 w-3.5" /> מועדון פטשופ
             </p>
             <h2 className="mt-3 font-display text-2xl font-extrabold leading-tight md:text-3xl">
               מצטרפים למועדון? מקבלים <span className="num">10%</span> הנחה

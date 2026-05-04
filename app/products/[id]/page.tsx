@@ -42,10 +42,12 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <span>({product.reviewCount.toLocaleString('he-IL')} ביקורות)</span>
           </div>
 
-          <div className="mt-4 flex flex-wrap items-baseline gap-3">
-            <span className="text-3xl font-bold">{formatILS(product.price)}</span>
+          <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="num whitespace-nowrap text-3xl font-bold">
+              {formatILS(product.price)}
+            </span>
             {product.originalPrice && (
-              <span className="text-slate-400 line-through">
+              <span className="num whitespace-nowrap text-slate-400 line-through">
                 {formatILS(product.originalPrice)}
               </span>
             )}

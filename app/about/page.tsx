@@ -5,9 +5,9 @@ import { ArrowLeft, Search, Truck, Heart, Users, Star, PackageCheck } from 'luci
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
-  title: 'אודות פטופיה — החנות שתמיד חיפשנו',
+  title: 'אודות פטשופ — החנות שתמיד חיפשנו',
   description:
-    'פטופיה היא חנות ישראלית לציוד פרימיום לחיות מחמד. אנחנו זוג ושני כלבים שהקימו את החנות שתמיד חיפשנו: ציוד עמיד שעובר בדיקה אישית, מחירים הוגנים ושירות בעברית.'
+    'פטשופ היא חנות ישראלית לציוד פרימיום לחיות מחמד. אנחנו זוג ושני כלבים שהקימו את החנות שתמיד חיפשנו: ציוד עמיד שעובר בדיקה אישית, מחירים הוגנים ושירות בעברית.'
 };
 
 const PILLARS = [
@@ -52,7 +52,7 @@ export default function AboutPage() {
         />
         <div className="relative container py-20 md:py-28 max-w-2xl">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">
-            אודות פטופיה
+            אודות פטשופ
           </p>
           <h1 className="mt-3 font-display text-4xl font-extrabold leading-[1.1] md:text-5xl">
             החנות שתמיד חיפשנו —
@@ -60,7 +60,7 @@ export default function AboutPage() {
             אז הקמנו אותה בעצמנו
           </h1>
           <p className="mt-5 text-lg text-slate-200 leading-relaxed">
-            פטופיה היא חנות ישראלית לציוד פרימיום לחיות מחמד. אנחנו זוג עם
+            פטשופ היא חנות ישראלית לציוד פרימיום לחיות מחמד. אנחנו זוג עם
             שני כלבים שמאסו לרכוש ציוד שמתפרק אחרי חודש או להזמין מאתרים
             בחו״ל בלי לדעת מה יגיע.
           </p>

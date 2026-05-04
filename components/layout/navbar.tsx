@@ -24,7 +24,7 @@ export default function Navbar() {
       <div className="container flex h-16 items-center gap-4">
         <Link href="/" className="flex items-center gap-2 font-extrabold text-lg text-ink">
           <PawPrint className="h-6 w-6 text-brand" />
-          <span className="font-display">פטופיה</span>
+          <span className="font-display">פטשופ</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

@@ -68,12 +68,14 @@ export default function ProductCard({ product }: { product: Product }) {
             (<span className="num">{product.reviewCount.toLocaleString('he-IL')}</span> ביקורות)
           </span>
         </div>
-        <div className="mt-2 flex flex-wrap items-baseline gap-2">
-          <span className={`text-lg font-extrabold ${onSale ? 'text-accent' : 'text-ink'}`}>
+        <div className="mt-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+          <span
+            className={`num whitespace-nowrap text-lg font-extrabold ${onSale ? 'text-accent' : 'text-ink'}`}
+          >
             {formatILS(product.price)}
           </span>
           {product.originalPrice && (
-            <span className="text-sm text-slate-400 line-through">
+            <span className="num whitespace-nowrap text-sm text-slate-400 line-through">
               {formatILS(product.originalPrice)}
             </span>
           )}

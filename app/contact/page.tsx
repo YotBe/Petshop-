@@ -3,9 +3,9 @@ import { Mail, MessageCircle, Clock } from 'lucide-react';
 import ContactForm from './contact-form';
 
 export const metadata: Metadata = {
-  title: 'צרו קשר — פטופיה',
+  title: 'צרו קשר — פטשופ',
   description:
-    'יש שאלה על מידה, מוצר, משלוח או החזרה? צוות פטופיה זמין בעברית בוואטסאפ, במייל או דרך טופס יצירת קשר. נחזור אליכם תוך יום עסקים אחד.'
+    'יש שאלה על מידה, מוצר, משלוח או החזרה? צוות פטשופ זמין בעברית בוואטסאפ, במייל או דרך טופס יצירת קשר. נחזור אליכם תוך יום עסקים אחד.'
 };
 
 const CHANNELS = [
@@ -19,8 +19,8 @@ const CHANNELS = [
   {
     Icon: Mail,
     label: 'אימייל',
-    value: 'hello@petopia.co.il',
-    href: 'mailto:hello@petopia.co.il',
+    value: 'hello@petshop.co.il',
+    href: 'mailto:hello@petshop.co.il',
     note: 'תשובה תוך יום עסקים אחד'
   },
   {
