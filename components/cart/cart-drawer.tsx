@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Minus, Plus, Trash2 } from 'lucide-react';
+import { Minus, Plus, Trash2, PackageOpen } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { useCart } from '@/store/cart-store';
+import { useCart, lineKey } from '@/store/cart-store';
 import { formatILS } from '@/lib/utils';
 
 export default function CartDrawer() {
@@ -23,15 +23,15 @@ export default function CartDrawer() {
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center text-slate-500">
               <p>העגלה ריקה.</p>
               <Button onClick={close} asChild>
-                <Link href="/products">עיין במוצרים</Link>
+                <Link href="/products">עיינו במוצרים</Link>
               </Button>
             </div>
           ) : (
             <ul className="space-y-4">
               {items.map((item) => (
-                <li key={item.productId} className="flex gap-3">
-                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md bg-slate-100">
-                    <Image src={item.image} alt={item.title} fill sizes="80px" className="object-cover" />
+                <li key={lineKey(item.productId, item.bundleId)} className="flex gap-3">
+                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md bg-slate-50">
+                    <Image src={item.image} alt={item.title} fill sizes="80px" className="object-contain p-1" />
                   </div>
                   <div className="flex flex-1 flex-col min-w-0">
                     <Link
@@ -41,6 +41,12 @@ export default function CartDrawer() {
                     >
                       {item.title}
                     </Link>
+                    {item.bundleTitle && (
+                      <span className="mt-1 inline-flex w-fit items-center gap-1 rounded-full bg-cream px-2 py-0.5 text-[10px] font-semibold text-brand ring-1 ring-brand/20">
+                        <PackageOpen className="h-3 w-3" />
+                        חלק מ{item.bundleTitle}
+                      </span>
+                    )}
                     <div className="mt-1 text-sm text-slate-600">
                       <span className="num whitespace-nowrap">{formatILS(item.price)}</span>
                     </div>
@@ -49,7 +55,7 @@ export default function CartDrawer() {
                         <button
                           className="p-1.5 hover:bg-slate-100"
                           aria-label="הפחת"
-                          onClick={() => setQuantity(item.productId, item.quantity - 1)}
+                          onClick={() => setQuantity(item.productId, item.quantity - 1, item.bundleId)}
                         >
                           <Minus className="h-3.5 w-3.5" />
                         </button>
@@ -57,7 +63,7 @@ export default function CartDrawer() {
                         <button
                           className="p-1.5 hover:bg-slate-100"
                           aria-label="הוסף"
-                          onClick={() => setQuantity(item.productId, item.quantity + 1)}
+                          onClick={() => setQuantity(item.productId, item.quantity + 1, item.bundleId)}
                         >
                           <Plus className="h-3.5 w-3.5" />
                         </button>
@@ -65,7 +71,7 @@ export default function CartDrawer() {
                       <button
                         className="text-slate-400 hover:text-red-600"
                         aria-label="הסר"
-                        onClick={() => remove(item.productId)}
+                        onClick={() => remove(item.productId, item.bundleId)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>

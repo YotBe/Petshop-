@@ -35,12 +35,37 @@ export interface Product {
   pairsWith?: string[];
 }
 
+export type BundleAudience = 'puppy' | 'new-adopter' | 'senior' | 'puller';
+
+export interface BundleItem {
+  productId: string;
+  quantity: number;
+}
+
+export interface Bundle {
+  id: string;
+  slug: string;
+  title: string;
+  audience: BundleAudience;
+  description: string;
+  heroImage: string;
+  items: BundleItem[];
+  /** hand-set bundle price in agorot (the discount lives here) */
+  price: number;
+  /** marketing chip, e.g. "חיסכון של ₪89" */
+  badge?: string;
+}
+
 export interface CartItem {
   productId: string;
   title: string;
   image: string;
   price: number;
   quantity: number;
+  /** set when this line came from a Bundle.addBundle action */
+  bundleId?: string;
+  /** denormalized for render; canonical title is in BUNDLES on the server */
+  bundleTitle?: string;
 }
 
 export interface OrderLine {
@@ -49,6 +74,23 @@ export interface OrderLine {
   quantity: number;
   price: number;
   aliexpressUrl: string;
+  bundleId?: string;
+  bundleTitle?: string;
+}
+
+export type OrderStatus =
+  | 'received'
+  | 'paid'
+  | 'preparing'
+  | 'shipped'
+  | 'out_for_delivery'
+  | 'delivered'
+  | 'cancelled';
+
+export interface OrderTimelineEntry {
+  status: OrderStatus;
+  at: string;
+  note?: string;
 }
 
 export interface Order {
@@ -57,6 +99,7 @@ export interface Order {
   customer: {
     name: string;
     email: string;
+    phone?: string;
     address: string;
     city: string;
     postalCode: string;
@@ -66,7 +109,10 @@ export interface Order {
   subtotal: number;
   shipping: number;
   total: number;
-  status: 'pending' | 'fulfilled' | 'shipped';
+  status: OrderStatus;
+  timeline: OrderTimelineEntry[];
+  trackingUrl?: string;
+  trackingCarrier?: string;
 }
 
 export interface CategoryMeta {

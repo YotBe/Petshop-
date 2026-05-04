@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown } from 'lucide-react';
-import { useCart } from '@/store/cart-store';
+import { ChevronDown, PackageOpen } from 'lucide-react';
+import { useCart, lineKey } from '@/store/cart-store';
 import { formatILS } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
@@ -57,15 +57,21 @@ export default function CheckoutSummary() {
         <h2 className="hidden lg:block text-lg font-semibold">סיכום הזמנה</h2>
         <ul className="mt-0 space-y-3 lg:mt-4">
           {items.map((i) => (
-            <li key={i.productId} className="flex gap-3">
-              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-slate-100">
-                <Image src={i.image} alt={i.title} fill sizes="56px" className="object-cover" />
+            <li key={lineKey(i.productId, i.bundleId)} className="flex gap-3">
+              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-slate-50">
+                <Image src={i.image} alt={i.title} fill sizes="56px" className="object-contain p-1" />
                 <span className="absolute -end-1 -top-1 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-slate-900 px-1 text-[10px] font-bold text-white">
                   {i.quantity}
                 </span>
               </div>
               <div className="flex-1 min-w-0">
                 <p className="line-clamp-2 text-sm font-medium">{i.title}</p>
+                {i.bundleTitle && (
+                  <span className="mt-0.5 inline-flex w-fit items-center gap-1 rounded-full bg-cream px-1.5 py-0.5 text-[10px] font-semibold text-brand ring-1 ring-brand/20">
+                    <PackageOpen className="h-2.5 w-2.5" />
+                    {i.bundleTitle}
+                  </span>
+                )}
                 <p className="text-xs text-slate-500">
                   <span className="num whitespace-nowrap">{formatILS(i.price)}</span>
                 </p>

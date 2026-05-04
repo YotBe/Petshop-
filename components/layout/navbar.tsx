@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 
 const PRIMARY_LINKS = [
   { href: '/products', label: 'כל המוצרים' },
+  { href: '/bundles', label: 'ערכות' },
   { href: '/#deals', label: 'מבצעים' },
   { href: '/#top-rated', label: 'הכי מדורג' },
   { href: '/about', label: 'אודות' },
@@ -21,6 +22,7 @@ const PRIMARY_LINKS = [
 function isActive(pathname: string, href: string) {
   if (href.startsWith('/#')) return false;
   if (href === '/products') return pathname.startsWith('/products');
+  if (href === '/bundles') return pathname.startsWith('/bundles');
   if (href === '/about') return pathname === '/about';
   if (href === '/contact') return pathname === '/contact';
   return pathname === href;
